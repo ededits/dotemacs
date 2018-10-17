@@ -1,0 +1,16 @@
+tramp
+auto-save-list
+backup
+eshell
+ido.last
+ac-comphist.dat
+history
+network-security.data
+smex-items
+recentf
+.emacs.desktop .emacs.desktop.lock
+.places
+old
+.emacs.desktop.lock
+.emacs.desktop
+semanticdb
