@@ -1,10 +1,9 @@
 ;;------------COLOR THEME--------------------------------------
 (require 'setup-colorscheme)
 
-
-;; (require 'powerline)
-;; (setq powerline-arrow-shape 'curves)
-;; (powerline-vim-theme)
+(require 'powerline)
+(setq powerline-arrow-shape 'curves)
+(powerline-vim-theme)
 
 ;; stop annoying beeps anf flash warnings
 ;;(setq visible-bell t)
