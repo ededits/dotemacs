@@ -8,7 +8,12 @@
 ;; mac friendly font
 ;;
 ;;(set-face-attribute 'default nil :font "Monaco-12")
-;;(set-default-font "-*-Ubuntu Mono-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+(set-default-font "-*-Ubuntu Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")
+;;(set-default-font "-*-Ubuntu Mono-normal-normal-normal-15")
+(set-face-attribute 'default nil :font "PragmataPro-14")
+(set-fontset-font "fontset-default" 'cyrillic '("PragmataPro-14"))
+(set-fontset-font "fontset-default" 'greek '("PragmataPro-14"))
+
 (set-default-font "PragmataPro-14")
 (set-face-attribute 'default nil :font "PragmataPro-14")
 (set-fontset-font "fontset-default" 'cyrillic '("PragmataPro-14"))
