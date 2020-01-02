@@ -8,16 +8,27 @@
 ;; mac friendly font
 ;;
 ;;(set-face-attribute 'default nil :font "Monaco-12")
-(set-default-font "-*-Ubuntu Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1")
-;;(set-default-font "-*-Ubuntu Mono-normal-normal-normal-15")
-(set-face-attribute 'default nil :font "PragmataPro-14")
-(set-fontset-font "fontset-default" 'cyrillic '("PragmataPro-14"))
-(set-fontset-font "fontset-default" 'greek '("PragmataPro-14"))
 
-(set-default-font "PragmataPro-14")
-(set-face-attribute 'default nil :font "PragmataPro-14")
-(set-fontset-font "fontset-default" 'cyrillic '("PragmataPro-14"))
-(set-fontset-font "fontset-default" 'greek '("PragmataPro-14"))
+(defvar myfont
+  "Font that I want to use by default")
+
+(setq myfont "-*-Ubuntu-normal-normal-normal-*-15-*-*-*-p-0-iso10646-1")
+;(setq myfont  "PragmataPro-14")
+
+(set-default-font myfont)
+(set-face-attribute 'default nil :font myfont)
+(set-fontset-font "fontset-default" 'cyrillic myfont)
+(set-fontset-font "fontset-default" 'greek myfont)
+
+; this section is to be deleted
+;; (set-default-font "-*-Ubuntu-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1")
+;; (set-face-attribute 'default nil :font "-*-Ubuntu-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1")
+;; (set-fontset-font "fontset-default" 'cyrillic '("-*-Ubuntu-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1"))
+;; (set-fontset-font "fontset-default" 'greek '("-*-Ubuntu-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1"))
+;; (set-default-font "PragmataPro-14")
+;; (set-face-attribute 'default nil :font "PragmataPro-14")
+;; (set-fontset-font "fontset-default" 'cyrillic '("PragmataPro-14"))
+;; (set-fontset-font "fontset-default" 'greek '("PragmataPro-14"))
 ;;(set-face-attribute 'default nil :family "Anonymous Pro" :height 140)
 
 ;; make sure path is correct when launched as application
