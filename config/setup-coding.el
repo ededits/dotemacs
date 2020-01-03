@@ -14,5 +14,7 @@
 (setq python-shell-interpreter "/opt/anaconda3/bin/ipython"
         python-shell-interpreter-args "-i")
 
+(setq python-indent-offset 4)
+
 
 (provide 'setup-coding)

@@ -12,8 +12,8 @@
 (defvar myfont
   "Font that I want to use by default")
 
-(setq myfont "-*-Ubuntu-normal-normal-normal-*-15-*-*-*-p-0-iso10646-1")
-;(setq myfont  "PragmataPro-14")
+;(setq myfont "-*-Ubuntu-normal-normal-normal-*-15-*-*-*-p-0-iso10646-1")
+(setq myfont  "PragmataPro-14")
 
 (set-default-font myfont)
 (set-face-attribute 'default nil :font myfont)

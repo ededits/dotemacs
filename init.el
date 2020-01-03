@@ -74,6 +74,7 @@
    (cons 'yasnippet melpa)
    (cons 'highlight-indent-guides melpa)
    (cons 'elpy melpa)
+   (cons 'projectile melpa)
    ))
 (condition-case nil
     (init--install-packages)
@@ -215,6 +216,9 @@
    (quote
     ("a2cde79e4cc8dc9a03e7d9a42fabf8928720d420034b66aecc5b665bbf05d4e9" "947190b4f17f78c39b0ab1ea95b1e6097cc9202d55c73a702395fc817f899393" "11e57648ab04915568e558b77541d0e94e69d09c9c54c06075938b6abc0189d8" default)))
  '(font-latex-fontify-script nil)
+ '(package-selected-packages
+   (quote
+    (projectile undo-tree smooth-scrolling smex smartparens powerline move-text monokai-theme molokai-theme highlight-indent-guides elpy dracula-theme darkokai-theme change-inner auto-complete auctex)))
  '(preview-gs-command "/usr/local/bin/gs")
  '(preview-gs-options
    (quote
@@ -230,3 +234,5 @@
  '(font-latex-sectioning-5-face ((t (:inherit default :foreground "yellow"))))
  '(font-latex-subscript-face ((t nil)))
  '(font-latex-superscript-face ((t nil))))
+
+
