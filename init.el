@@ -57,39 +57,42 @@
 (setq is-mac (equal system-type 'darwin))
 
 ;; ;; Setup packages
-(require 'setup-package)
-;; Install extensions if they're missing
-(defun init--install-packages ()
-  (packages-install
-   (cons 'smooth-scrolling melpa)
-   ;;(cons 'undo-tree melpa)
-   (cons 'expand-region melpa)
-   (cons 'move-text melpa)
-   ;;(cons 'powerline melpa)
-   (cons 'telephone-line melpa)
-   (cons 'molokai-theme melpa)
-   (cons 'monokai-theme melpa)
-   (cons 'dracula-theme melpa)
-   (cons 'popup melpa)
-   (cons 'smartparens melpa)
-   (cons 'smex melpa)
-   (cons 'change-inner melpa)
-   ;;(cons 'frame-cmds melpa)
-   ;;(cons 'frame-fns melpa)
-   (cons 'auto-complete melpa)
-   (cons 'dash melpa)
-   ;;(cons 'auctex melpa)
-   (cons 'yasnippet melpa)
-   (cons 'highlight-indent-guides melpa)
-   (cons 'elpy melpa)
-   (cons 'projectile melpa)
-   ))
-(condition-case nil
-    (init--install-packages)
-  (error
-   (package-refresh-contents)
-   (init--install-packages))
-  )
+;; ;; this section does not need to be ran every
+;; ;; time emacs starts. Uncomment when needed
+;; ;; (which is first start on new config)
+;; (require 'setup-package)
+;; ;; Install extensions if they're missing
+;; (defun init--install-packages ()
+;;   (packages-install
+;;    (cons 'smooth-scrolling melpa)
+;;    ;;(cons 'undo-tree melpa)
+;;    (cons 'expand-region melpa)
+;;    (cons 'move-text melpa)
+;;    ;;(cons 'powerline melpa)
+;;    (cons 'telephone-line melpa)
+;;    (cons 'molokai-theme melpa)
+;;    (cons 'monokai-theme melpa)
+;;    (cons 'dracula-theme melpa)
+;;    (cons 'popup melpa)
+;;    (cons 'smartparens melpa)
+;;    (cons 'smex melpa)
+;;    (cons 'change-inner melpa)
+;;    ;;(cons 'frame-cmds melpa)
+;;    ;;(cons 'frame-fns melpa)
+;;    (cons 'auto-complete melpa)
+;;    (cons 'dash melpa)
+;;    ;;(cons 'auctex melpa)
+;;    (cons 'yasnippet melpa)
+;;    (cons 'highlight-indent-guides melpa)
+;;    (cons 'elpy melpa)
+;;    (cons 'projectile melpa)
+;;    ))
+;; (condition-case nil
+;;     (init--install-packages)
+;;   (error
+;;    (package-refresh-contents)
+;;    (init--install-packages))
+;;   )
 
 
 ;; ;; Lets start with a smattering of sanity
