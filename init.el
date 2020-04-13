@@ -1,9 +1,16 @@
 ;; Turn off mouse interface early in startup to avoid momentary display
 
 ;; that's OK, leave me menu bar pls
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+;;(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
 
 ;;;; No splash screen please ... jeez
@@ -55,10 +62,11 @@
 (defun init--install-packages ()
   (packages-install
    (cons 'smooth-scrolling melpa)
-   (cons 'undo-tree melpa)
+   ;;(cons 'undo-tree melpa)
    (cons 'expand-region melpa)
    (cons 'move-text melpa)
-   (cons 'powerline melpa)
+   ;;(cons 'powerline melpa)
+   (cons 'telephone-line melpa)
    (cons 'molokai-theme melpa)
    (cons 'monokai-theme melpa)
    (cons 'dracula-theme melpa)
@@ -70,7 +78,7 @@
    ;;(cons 'frame-fns melpa)
    (cons 'auto-complete melpa)
    (cons 'dash melpa)
-   (cons 'auctex melpa)
+   ;;(cons 'auctex melpa)
    (cons 'yasnippet melpa)
    (cons 'highlight-indent-guides melpa)
    (cons 'elpy melpa)
@@ -214,11 +222,11 @@
      (output-html "xdg-open"))))
  '(custom-safe-themes
    (quote
-    ("a2cde79e4cc8dc9a03e7d9a42fabf8928720d420034b66aecc5b665bbf05d4e9" "947190b4f17f78c39b0ab1ea95b1e6097cc9202d55c73a702395fc817f899393" "11e57648ab04915568e558b77541d0e94e69d09c9c54c06075938b6abc0189d8" default)))
+    ("83ae405e25a0a81f2840bfe5daf481f74df0ddb687f317b5e005aa61261126e9" "a2cde79e4cc8dc9a03e7d9a42fabf8928720d420034b66aecc5b665bbf05d4e9" "947190b4f17f78c39b0ab1ea95b1e6097cc9202d55c73a702395fc817f899393" "11e57648ab04915568e558b77541d0e94e69d09c9c54c06075938b6abc0189d8" default)))
  '(font-latex-fontify-script nil)
  '(package-selected-packages
    (quote
-    (projectile undo-tree smooth-scrolling smex smartparens powerline move-text monokai-theme molokai-theme highlight-indent-guides elpy dracula-theme darkokai-theme change-inner auto-complete auctex)))
+    (projectile undo-tree smooth-scrolling smex smartparens powerline move-text monokai-theme molokai-theme highlight-indent-guides elpy dracula-theme darkokai-theme change-inner auto-complete)))
  '(preview-gs-command "/usr/local/bin/gs")
  '(preview-gs-options
    (quote

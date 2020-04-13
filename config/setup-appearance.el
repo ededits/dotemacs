@@ -1,9 +1,16 @@
 ;;------------COLOR THEME--------------------------------------
 (require 'setup-colorscheme)
 
-(require 'powerline)
-(setq powerline-arrow-shape 'curves)
-(powerline-vim-theme)
+;; (require 'powerline)
+;; (setq powerline-arrow-shape 'curves)
+;; (powerline-vim-theme)
+
+;; let's use telephone-line instead of powerline
+(require 'telephone-line)
+(telephone-line-mode 1)
+
+
+
 
 ;; stop annoying beeps anf flash warnings
 ;;(setq visible-bell t)
@@ -25,7 +32,7 @@
 
 
 ;; Ditch them scrollbars
-(scroll-bar-mode -1)
+;;(scroll-bar-mode -1)
 
 ;------------Modeline LOOK----------------------------------------
 ;; display current time in the modeline

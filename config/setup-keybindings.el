@@ -47,8 +47,8 @@
 
 
 ;; vim's ci and co commands
-(global-set-key (kbd "M-I") 'change-inner)
-(global-set-key (kbd "M-O") 'change-outer)
+;;(global-set-key (kbd "M-I") 'change-inner)
+;;(global-set-key (kbd "M-O") 'change-outer)
 
 
 
