@@ -28,7 +28,7 @@
 (defun other-window-backward (&optional n)
   "Select Nth the previous window."
   (interactive "p")
-  (other-window (- 1))) ; if n is nil
+  (other-window (- 1)))
 
 
 

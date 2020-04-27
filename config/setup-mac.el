@@ -9,21 +9,18 @@
 ;;
 ;;(set-face-attribute 'default nil :font "Monaco-12")
 
-(defvar myfont
-  "Font that I want to use by default")
+;; (defvar myfont
+;;   "Font that I want to use by default")
 
-;(setq myfont "-*-Ubuntu-normal-normal-normal-*-15-*-*-*-p-0-iso10646-1")
-(setq myfont  "Pragmata Pro-14")
+;; ;(setq myfont "-*-Ubuntu-normal-normal-normal-*-15-*-*-*-p-0-iso10646-1")
+;; (setq myfont  "Pragmata Pro-14")
 
 ;; Set default font
 (set-face-attribute 'default nil
-                    :family "Pragmata Pro"
+                    :family "PragmataPro"
                     :height 140
                     :weight 'normal
                     :width 'normal)
-
-
-
 
 ;; (set-default-font myfont)
 ;; (set-face-attribute 'default nil :font myfont)
