@@ -56,43 +56,43 @@
 ;; ;; Are we on a mac?
 (setq is-mac (equal system-type 'darwin))
 
-;; ;; Setup packages
-;; ;; this section does not need to be ran every
-;; ;; time emacs starts. Uncomment when needed
-;; ;; (which is first start on new config)
-;; (require 'setup-package)
-;; ;; Install extensions if they're missing
-;; (defun init--install-packages ()
-;;   (packages-install
-;;    (cons 'smooth-scrolling melpa)
-;;    ;;(cons 'undo-tree melpa)
-;;    (cons 'expand-region melpa)
-;;    (cons 'move-text melpa)
-;;    ;;(cons 'powerline melpa)
-;;    (cons 'telephone-line melpa)
-;;    (cons 'molokai-theme melpa)
-;;    (cons 'monokai-theme melpa)
-;;    (cons 'dracula-theme melpa)
-;;    (cons 'popup melpa)
-;;    (cons 'smartparens melpa)
-;;    (cons 'smex melpa)
-;;    (cons 'change-inner melpa)
-;;    ;;(cons 'frame-cmds melpa)
-;;    ;;(cons 'frame-fns melpa)
-;;    (cons 'auto-complete melpa)
-;;    (cons 'dash melpa)
-;;    ;;(cons 'auctex melpa)
-;;    (cons 'yasnippet melpa)
-;;    (cons 'highlight-indent-guides melpa)
-;;    (cons 'elpy melpa)
-;;    (cons 'projectile melpa)
-;;    ))
-;; (condition-case nil
-;;     (init--install-packages)
-;;   (error
-;;    (package-refresh-contents)
-;;    (init--install-packages))
-;;   )
+;; Setup packages
+;; this section does not need to be ran every
+;; time emacs starts. Uncomment when needed
+;; (which is first start on new config)
+(require 'setup-package)
+;; Install extensions if they're missing
+(defun init--install-packages ()
+  (packages-install
+   (cons 'smooth-scrolling melpa)
+   ;;(cons 'undo-tree melpa)
+   (cons 'expand-region melpa)
+   (cons 'move-text melpa)
+   ;;(cons 'powerline melpa)
+   (cons 'telephone-line melpa)
+   (cons 'molokai-theme melpa)
+   (cons 'monokai-theme melpa)
+   (cons 'dracula-theme melpa)
+   (cons 'popup melpa)
+   (cons 'smartparens melpa)
+   (cons 'smex melpa)
+   (cons 'change-inner melpa)
+   ;;(cons 'frame-cmds melpa)
+   ;;(cons 'frame-fns melpa)
+   (cons 'auto-complete melpa)
+   (cons 'dash melpa)
+   ;;(cons 'auctex melpa)
+   (cons 'yasnippet melpa)
+   (cons 'highlight-indent-guides melpa)
+   (cons 'elpy melpa)
+   (cons 'projectile melpa)
+   ))
+(condition-case nil
+    (init--install-packages)
+  (error
+   (package-refresh-contents)
+   (init--install-packages))
+  )
 
 
 ;; ;; Lets start with a smattering of sanity
@@ -225,7 +225,7 @@
      (output-html "xdg-open"))))
  '(custom-safe-themes
    (quote
-    ("83ae405e25a0a81f2840bfe5daf481f74df0ddb687f317b5e005aa61261126e9" "a2cde79e4cc8dc9a03e7d9a42fabf8928720d420034b66aecc5b665bbf05d4e9" "947190b4f17f78c39b0ab1ea95b1e6097cc9202d55c73a702395fc817f899393" "11e57648ab04915568e558b77541d0e94e69d09c9c54c06075938b6abc0189d8" default)))
+    ("f9aede508e587fe21bcfc0a85e1ec7d27312d9587e686a6f5afdbb0d220eab50" "83ae405e25a0a81f2840bfe5daf481f74df0ddb687f317b5e005aa61261126e9" "a2cde79e4cc8dc9a03e7d9a42fabf8928720d420034b66aecc5b665bbf05d4e9" "947190b4f17f78c39b0ab1ea95b1e6097cc9202d55c73a702395fc817f899393" "11e57648ab04915568e558b77541d0e94e69d09c9c54c06075938b6abc0189d8" default)))
  '(font-latex-fontify-script nil)
  '(package-selected-packages
    (quote

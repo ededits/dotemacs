@@ -13,12 +13,22 @@
   "Font that I want to use by default")
 
 ;(setq myfont "-*-Ubuntu-normal-normal-normal-*-15-*-*-*-p-0-iso10646-1")
-(setq myfont  "PragmataPro-14")
+(setq myfont  "Pragmata Pro-14")
 
-(set-default-font myfont)
-(set-face-attribute 'default nil :font myfont)
-(set-fontset-font "fontset-default" 'cyrillic myfont)
-(set-fontset-font "fontset-default" 'greek myfont)
+;; Set default font
+(set-face-attribute 'default nil
+                    :family "Pragmata Pro"
+                    :height 140
+                    :weight 'normal
+                    :width 'normal)
+
+
+
+
+;; (set-default-font myfont)
+;; (set-face-attribute 'default nil :font myfont)
+;; (set-fontset-font "fontset-default" 'cyrillic myfont)
+;; (set-fontset-font "fontset-default" 'greek myfont)
 
 ; this section is to be deleted
 ;; (set-default-font "-*-Ubuntu-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1")
