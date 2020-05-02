@@ -78,7 +78,7 @@
 
 (defun set-dark-scheme () ;;---------------------------------
   (interactive)
-  (load-theme 'monokai)
+  (load-theme 'monokai t)
   (global-hl-line-mode 1)
   (set-face-background 'hl-line "grey20")
   (setq-default cursor-type '(bar . 3))

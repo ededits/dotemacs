@@ -16,5 +16,6 @@ old
 semanticdb
 elpa
 elpy
+.lsp-session-*
 *~
 .#*
