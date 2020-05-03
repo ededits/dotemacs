@@ -54,7 +54,7 @@
 (defun init--install-packages ()
   (packages-install
    (cons 'smooth-scrolling melpa)
-   (cons 'undo-tree melpa)
+   (cons 'undo-tree gnu)
    (cons 'expand-region melpa)
    (cons 'move-text melpa)
    (cons 'telephone-line melpa)
