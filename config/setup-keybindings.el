@@ -3,6 +3,11 @@
 (global-set-key (kbd "C-x r q") 'save-buffers-kill-terminal)
 
 
+;; expand-region -- Increase selected region by semantic units.
+(global-set-key (kbd "C-.") 'er/expand-region)
+(global-set-key (kbd "C-,") 'er/contract-region)
+
+
 ;; Smart M-x
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
@@ -48,7 +53,7 @@
 
 ;; vim's ci and co commands
 ;;(global-set-key (kbd "M-I") 'change-inner)
-;;(global-set-key (kbd "M-O") 'change-outer)
+;;(global-set-key (kbd "M-O") 'change-outer)              
 
 
 
@@ -58,9 +63,11 @@
 
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
-(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
 (global-set-key (kbd "C-c y") 'bury-buffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+;;(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
+;; helm-recentf instead please
+(global-set-key (kbd "C-x f") 'helm-recentf)
 
 
 ;; Edit file with sudo
@@ -149,10 +156,9 @@
 (define-key occur-mode-map (kbd "p") 'previous-line)
 
 
-;; increase font
-(global-set-key (kbd "C-=") (quote text-scale-increase))
-;; decrease font
-(global-set-key (kbd "C--") (quote text-scale-decrease))
+;; increase and decrease font
+(global-set-key (kbd "C-=") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
 
 ;; move to next window
 (global-set-key "\C-x\C-n" 'other-window)

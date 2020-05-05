@@ -19,7 +19,7 @@
 
 
 ;; Highlight matching parentheses when the point is on them.
-(show-paren-mode 1)
+(show-paren-mode 1) 
 
 
 ;; No menu bars
@@ -31,8 +31,6 @@
   (blink-cursor-mode -1))
 
 
-;; Ditch them scrollbars
-;;(scroll-bar-mode -1)
 
 ;------------Modeline LOOK----------------------------------------
 ;; display current time in the modeline

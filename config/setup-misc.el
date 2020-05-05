@@ -6,16 +6,6 @@
                                   indentation space-after-tab)
       whitespace-line-column 100)
 
-;; Add Urban Dictionary to webjump (C-x g)
-(eval-after-load "webjump"
-  '(add-to-list 'webjump-sites '("Urban Dictionary" .
-                                 [simple-query
-                                  "www.urbandictionary.com"
-                                  "http://www.urbandictionary.com/define.php?term="
-                                  ""])))
-
-
-
 
 ;; A bit of misc cargo culting in misc.el
 (setq xterm-mouse-mode t)
@@ -27,57 +17,43 @@
 (setq scroll-conservatively 10000)
 
 
-;;--------------------------------------------------------
-;; programming: make
-(global-set-key "\C-c\C-]" (quote compile))
-;; compilation window size
-(setq compilation-window-height 8)
-;; to make compilation window go away
-;; if there are no compilation errors
-(setq compilation-finish-function
-      (lambda (buf str)
-        (if (string-match "exited abnormally" str)
-            ;;there were errors
-            (message "compilation errors, press C-x ` to visit")
-          ;;no errors, make the compilation window go away in 0.5 seconds
-          (run-at-time 0.5 nil 'delete-windows-on buf)
-          (message "NO COMPILATION ERRORS!"))))
-;;--------------------------------------------------------
-
-
-
-
-
-;; Map Modifier-CyrillicLetter to the underlying Modifier-LatinLetter, so that
-;; control sequences can be used when keyboard mapping is changed outside of
-;; Emacs.
-;;
-;; For this to work correctly, .emacs must be encoded in the default coding
-;; system.
-;;
-(require 'cl)
-(mapcar*
- (lambda (r e) ; R and E are matching Russian and English keysyms
-   ;; iterate over modifiers
-   (mapc (lambda (mod)
-           (define-key input-decode-map
-             (vector (list mod r)) (vector (list mod e))))
-         '(control meta super hyper))
-   ;; finally, if Russian key maps nowhere, remap it to the English key without
-   ;; any modifiers
-   (define-key local-function-key-map (vector r) (vector e)))
- "йцукенгшщзхъфывапролджэячсмитьбю"
- "qwertyuiop[]asdfghjkl;'zxcvbnm,.")
-
-
-;; autopair braces
-(electric-pair-mode)
+;; В новой версии Емакс 24.1 при включенной системной русской
+;; раскладке можно вводить командные комбинации с любыми
+;; символами (с модификаторами и даже без), которые привязаны к
+;; командам, кроме `self-insert-command'. При этом, русские буквы
+;; автоматически транслируются в соответствующие английские.
+;; Например, последовательность `C-ч и' переводится в `C-x b' и
+;; запускает `switch-to-buffer'. Всё это получается при помощи такой
+;; функции:
+(defun reverse-input-method (input-method)
+  "Build the reverse mapping of single letters from INPUT-METHOD."
+  (interactive
+   (list (read-input-method-name "Use input method (default current): ")))
+  (if (and input-method (symbolp input-method))
+      (setq input-method (symbol-name input-method)))
+  (let ((current current-input-method)
+        (modifiers '(nil (control) (meta) (control meta))))
+    (when input-method
+      (activate-input-method input-method))
+    (when (and current-input-method quail-keyboard-layout)
+      (dolist (map (cdr (quail-map)))
+        (let* ((to (car map))
+               (from (quail-get-translation
+                      (cadr map) (char-to-string to) 1)))
+          (when (and (characterp from) (characterp to))
+            (dolist (mod modifiers)
+              (define-key local-function-key-map
+                (vector (append mod (list from)))
+                (vector (append mod (list to)))))))))
+    (when input-method
+      (activate-input-method current))))
+(reverse-input-method 'russian-computer)
 
 
 ;;; yasnippet
 ;;; should be loaded before auto complete so that they can work together
-(require 'yasnippet)
-(yas-global-mode 1)
+;; (require 'yasnippet)
+;; (yas-global-mode 1)
 
 
 
@@ -137,11 +113,5 @@
 (add-hook 'eshell-mode-hook
            '(lambda () (define-key eshell-mode-map "\C-l" 'eshell-clear)))
 
-
-(provide 'my-misc)
-
-
-
-(setq debug-on-error t)
 
 (provide 'setup-misc)
