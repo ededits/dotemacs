@@ -18,4 +18,5 @@ elpa
 elpy
 .lsp-session-*
 *~
+.cache
 .#*

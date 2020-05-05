@@ -4,7 +4,6 @@
 (setq ns-function-modifier 'hyper)
 
 
-
 ;; mac friendly font
 ;;
 ;;(set-face-attribute 'default nil :font "Monaco-12")
@@ -27,7 +26,7 @@
 ;; (set-fontset-font "fontset-default" 'cyrillic myfont)
 ;; (set-fontset-font "fontset-default" 'greek myfont)
 
-; this section is to be deleted
+                                        ; this section is to be deleted
 ;; (set-default-font "-*-Ubuntu-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1")
 ;; (set-face-attribute 'default nil :font "-*-Ubuntu-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1")
 ;; (set-fontset-font "fontset-default" 'cyrillic '("-*-Ubuntu-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1"))
