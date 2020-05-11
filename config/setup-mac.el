@@ -16,7 +16,7 @@
 
 ;; Set default font
 (set-face-attribute 'default nil
-                    :family "PragmataPro"
+                    :family "Pragmata Pro"
                     :height 140
                     :weight 'normal
                     :width 'normal)
