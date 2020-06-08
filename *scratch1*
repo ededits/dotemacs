@@ -1,0 +1,21 @@
+Some notes about slurm
+
+
+* LUA plugins
+  Lua plugins are configured via:
+** slurm.conf: 
+   #+begin_example
+   # JOB SUBMIT
+   JobSubmitPlugins=lua
+   #+end_example
+
+
+** job_submit.lua:
+   Here Slurm is instructed to look for all other lua plugins
+   #+begin_example
+   package.path = ';/share/apps/admins/slurm-lua/?.lua;' .. package.path  
+   #+end_example
+
+
+
+

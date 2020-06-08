@@ -19,24 +19,24 @@
 (setq org-default-notes-file "~/Desktop/notes.org")
 
 (defun wrap-example (b e)
-  "wraps active region into #+BEGIN_EXAMPLE .. #+END_EXAMPLE construct"
+  "wraps active region into #+begin_example .. #+end_example construct"
   (interactive "r")
   (save-restriction
     (narrow-to-region b e)
     (goto-char (point-min))
-    (insert "#+BEGIN_EXAMPLE\n\t") 
+    (insert "#+begin_example\n") 
     (goto-char (point-max)) 
-    (insert "\n\t#+END_EXAMPLE\n")))
+    (insert "\n#+end_example\n")))
 
 (defun wrap-src (b e)
-  "wraps active region into #+BEGIN_SRC .. #+END_SRC construct"
+  "wraps active region into #+begin_src .. #+end_src construct"
   (interactive "r")
   (save-restriction
     (narrow-to-region b e)
     (goto-char (point-min))
-    (insert "\n#+BEGIN_SRC\n") 
+    (insert "\n#+begin_src\n") 
     (goto-char (point-max)) 
-    (insert "\n#+END_SRC\n")))
+    (insert "\n#+end_src\n")))
 
 
 (global-set-key (kbd "C-x M-e") 'wrap-example)
@@ -58,6 +58,8 @@
 (eval-after-load "org"
   '(require 'ox-md nil t))
 '(region ((t (:background "steel blue"))))
+
+(use-package org-tempo)
 
 
 (provide 'setup-org)

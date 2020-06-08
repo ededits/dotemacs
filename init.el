@@ -68,13 +68,14 @@
    ;;    (cons 'popup melpa)
    (cons 'smartparens melpa)
    (cons 'smex melpa)
+   (cons 'eglot melpa)
    ;;(cons 'change-inner melpa)
    ;;    (cons 'auto-complete melpa)
    ;;    (cons 'dash melpa)
    ;;    (cons 'yasnippet melpa)
    ;;    (cons 'highlight-indent-guides melpa)
    (cons 'spinner gnu) ;; needed by lsp-mode and I have problems
-                       ;; installing it as an lsp-mode dependancy
+   ;;                     ;; installing it as an lsp-mode dependancy
    (cons 'lsp-mode melpa)
    (cons 'lsp-ui melpa)
    (cons 'company-lsp melpa)
@@ -97,7 +98,6 @@
    (package-refresh-contents)
    (init--install-packages))
   )
-
 
 
 
