@@ -1,12 +1,19 @@
 (require 'package)
 
 (defvar gnu '("gnu" . "http://elpa.gnu.org/packages/"))
-(defvar melpa '("melpa" . "http://melpa.milkbox.net/packages/"))
+;;(defvar melpa '("melpa" . "http://melpa.milkbox.net/packages/"))
+(defvar melpa '("melpa" . "https://melpa.org/packages"))
 
 ;; Add melpa to package repos
 (add-to-list 'package-archives melpa)
 
 (package-initialize)
+
+
+;; Bootstrap `use-package'
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+(package-install 'use-package))
 
 (unless (and (file-exists-p "~/.emacs.d/elpa/archives/gnu")
              (file-exists-p "~/.emacs.d/elpa/archives/melpa"))

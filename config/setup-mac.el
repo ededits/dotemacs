@@ -14,12 +14,12 @@
 ;; ;(setq myfont "-*-Ubuntu-normal-normal-normal-*-15-*-*-*-p-0-iso10646-1")
 ;; (setq myfont  "Pragmata Pro-14")
 
-;; Set default font
-(set-face-attribute 'default nil
-                    :family "Pragmata Pro"
-                    :height 140
-                    :weight 'normal
-                    :width 'normal)
+;; ;; Set default font
+;; (set-face-attribute 'default nil
+;;                     :family "Pragmata Pro"
+;;                     :height 140
+;;                     :weight 'normal
+;;                     :width 'normal)
 
 ;; (set-default-font myfont)
 ;; (set-face-attribute 'default nil :font myfont)
@@ -31,8 +31,8 @@
 ;; (set-face-attribute 'default nil :font "-*-Ubuntu-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1")
 ;; (set-fontset-font "fontset-default" 'cyrillic '("-*-Ubuntu-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1"))
 ;; (set-fontset-font "fontset-default" 'greek '("-*-Ubuntu-normal-normal-normal-*-14-*-*-*-p-0-iso10646-1"))
-;; (set-default-font "PragmataPro-14")
-;; (set-face-attribute 'default nil :font "PragmataPro-14")
+;;(set-default-font "PragmataPro-14")
+;;(set-face-attribute 'default nil :font "PragmataPro-16")
 ;; (set-fontset-font "fontset-default" 'cyrillic '("PragmataPro-14"))
 ;; (set-fontset-font "fontset-default" 'greek '("PragmataPro-14"))
 ;;(set-face-attribute 'default nil :family "Anonymous Pro" :height 140)

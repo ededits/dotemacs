@@ -58,14 +58,6 @@
   (set-cursor-color 'red)
   (setq-default cursor-type '(bar . 2)))
 
-(defun set-light-scheme() ;;---------------------------------
-  (interactive)
-  (load-theme 'tango 1)
-  (global-hl-line-mode 1)
-  (set-face-background 'hl-line "grey90")
-  (set-cursor-color "red")
-  (setq-default cursor-type '(bar . 2)))
-
 
 (defun set-light-scheme() ;;---------------------------------
   (interactive)
@@ -75,6 +67,14 @@
   (set-cursor-color "red")
   (setq-default cursor-type '(bar . 2)))
 
+
+(defun set-light-scheme() ;;---------------------------------
+  (interactive)
+  (load-theme 'tango 1)
+  (global-hl-line-mode 1)
+  (set-face-background 'hl-line "grey90")
+  (set-cursor-color "red")
+  (setq-default cursor-type '(bar . 2)))
 
 (defun set-dark-scheme () ;;---------------------------------
   (interactive)

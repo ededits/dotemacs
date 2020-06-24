@@ -44,6 +44,9 @@
 ;; Are we on a mac?
 (setq is-mac (equal system-type 'darwin))
 
+
+
+
 ;; Setup packages
 ;; this section does not need to be ran every
 ;; time emacs starts. Uncomment when needed
@@ -54,6 +57,7 @@
   (packages-install
    (cons 'auctex gnu)
    ;;(cons 'eglot gnu)
+   (cons 'use-package melpa)
    (cons 'use-package melpa)
    (cons 'smooth-scrolling melpa)
    (cons 'undo-tree gnu)

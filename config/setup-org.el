@@ -62,4 +62,11 @@
 (use-package org-tempo)
 
 
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))
+
+
+
+
 (provide 'setup-org)
