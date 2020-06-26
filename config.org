@@ -186,6 +186,29 @@
     (put 'autopair-newline 'disabled nil)
 
   #+end_src
+* Windows and buffer management
+  #+begin_src emacs-lisp
+    (use-package ace-window
+      :ensure t
+      :init
+      (progn
+        (global-set-key [remap other-window] 'ace-window)
+        (custom-set-faces
+         '(aw-leading-char-face
+           ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+        ))
+
+    ;; move to next window
+    (global-set-key "\C-x\C-n" 'other-window)
+    ;; move to previous window
+    (global-set-key "\C-x\C-p" 'other-window-backward)
+
+
+    ;; "Ctrl+c <-" will restore the previous window configuration and 
+    ;; "Ctrl+c ->" will redo the configuration you just destroyed.
+    (winner-mode 1)
+  #+end_src
+
 * Look and appearance
 ** general appearance settings
    #+begin_src emacs-lisp
@@ -336,7 +359,7 @@
             trash-directory "~/.Trash/emacs")
 
       ;; Ignore .DS_Store files with ido mode
-      (add-to-list 'ido-ignore-files "\\.DS_Store")
+      ;;(add-to-list 'ido-ignore-files "\\.DS_Store")
 
       ;; Don't open files from the workspace in a new frame
       (setq ns-pop-up-frames nil)
@@ -717,7 +740,6 @@
     (global-set-key (kbd "C-.") 'er/expand-region)
     (global-set-key (kbd "C-,") 'er/contract-region)
 
-
     ;; Smart M-x
     (global-set-key (kbd "M-x") 'smex)
     (global-set-key (kbd "M-X") 'smex-major-mode-commands)
@@ -754,34 +776,17 @@
     (global-set-key (kbd "M-w") 'save-region-or-current-line)
     (global-set-key (kbd "M-W") '(lambda () (interactive) (save-region-or-current-line 1)))
 
-
-    ;; Make shell more convenient, and suspend-frame less
-    ;; suspicious
-    ;; (global-set-key (kbd "C-z") 'shell)
-    ;; (global-set-key (kbd "C-x M-z") 'suspend-frame)
-
-
-    ;; vim's ci and co commands
-    ;;(global-set-key (kbd "M-I") 'change-inner)
-    ;;(global-set-key (kbd "M-O") 'change-outer)              
+    ;; ;; File finding
+    ;; (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
+    ;; (global-set-key (kbd "C-c y") 'bury-buffer)
+    ;; (global-set-key (kbd "C-x C-b") 'ibuffer)
+    ;; (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
+    ;; ;; helm-recentf instead please
+    ;; (global-set-key (kbd "C-x f") 'helm-recentf)
 
 
-
-    ;; Create/delete new frame
-    (define-key global-map (kbd "C-x C-n") 'make-frame-command)
-    (global-set-key (kbd "C-x C-c") 'delete-frame)
-
-    ;; File finding
-    (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
-    (global-set-key (kbd "C-c y") 'bury-buffer)
-    (global-set-key (kbd "C-x C-b") 'ibuffer)
-    ;;(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
-    ;; helm-recentf instead please
-    (global-set-key (kbd "C-x f") 'helm-recentf)
-
-
-    ;; Edit file with sudo
-    (global-set-key (kbd "M-s e") 'sudo-edit)
+    ;; ;; Edit file with sudo
+    ;; (global-set-key (kbd "M-s e") 'sudo-edit)
 
 
     ;; Window switching
@@ -793,51 +798,51 @@
 
     ;; Help should search more than just commands
     ;; (global-set-key (kbd "<f1> a") 'apropos)
-                                               
+
     ;; Navigation bindings                         
     (global-set-key [remap goto-line] 'goto-line-with-feedback)
-                                               
+
     ;; Completion at point                         
     (global-set-key (kbd "C-<tab>") 'completion-at-point)
-                                               
+
     ;; Like isearch, but adds region (if any) to history and deactivates mark
     (global-set-key (kbd "C-s") 'isearch-forward-use-region)
     (global-set-key (kbd "C-r") 'isearch-backward-use-region)
-                                               
+
     ;; Like isearch-*-use-region, but doesn't fuck with the active region
     (global-set-key (kbd "C-S-s") 'isearch-forward)
     (global-set-key (kbd "C-S-r") 'isearch-backward)
-                                               
+
     ;; Move more quickly                           
     (global-set-key (kbd "C-S-n") (lambda () (interactive) (ignore-errors (next-line 5))))
     (global-set-key (kbd "C-S-p") (lambda () (interactive) (ignore-errors (previous-line 5))))
     (global-set-key (kbd "C-S-f") (lambda () (interactive) (ignore-errors (forward-char 5))))
     (global-set-key (kbd "C-S-b") (lambda () (interactive) (ignore-errors (backward-char 5))))
-                                               
+
     ;; Query replace regex key binding             
     (global-set-key (kbd "M-&") 'query-replace-regexp)
-                                               
-                                               
+
+
     ;; ;; Comment/uncomment block                  
     (global-set-key (kbd "C-c c") 'comment-or-uncomment-region)
     (global-set-key (kbd "C-c u") 'uncomment-region)
-                                               
+
     ;; Create scratch buffer                       
     (global-set-key (kbd "C-c b") 'create-scratch-buffer)
-                                               
+
     ;; Move windows, even in org-mode              
     (global-set-key (kbd "<s-right>") 'windmove-right)
     (global-set-key (kbd "<s-left>") 'windmove-left)
     (global-set-key (kbd "<s-up>") 'windmove-up)   
     (global-set-key (kbd "<s-down>") 'windmove-down)
-                                               
-                                               
+
+
     ;; Clever newlines                             
     (global-set-key (kbd "<C-return>") 'open-line-below)
     (global-set-key (kbd "<C-S-return>") 'open-line-above)
     ;;(global-set-key (kbd "<M-return>") 'new-line-in-between)
-                                               
-                                               
+
+
     ;; Duplicate region                            
     (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
 
@@ -870,27 +875,13 @@
     (global-set-key (kbd "C-=") 'text-scale-increase)
     (global-set-key (kbd "C--") 'text-scale-decrease)
 
-    ;; move to next window
-    (global-set-key "\C-x\C-n" 'other-window)
-    ;; move to previous window
-    (global-set-key "\C-x\C-p" 'other-window-backward)
-
-
-    ;; "Ctrl+c <-" will restore the previous window configuration and 
-    ;; "Ctrl+c ->" will redo the configuration you just destroyed.
-    (winner-mode 1)
-
-
     ;; Add color to a shell running in emacs M-x shell
     (global-set-key (kbd "C-c s") 'eshell)
 
 
-    (provide 'setup-keybindings)
-
-
   #+end_src
 * ido
-  #+begin_src emacs-lisp
+  #+begin_src $emacs-lisp
     (require 'ido)
     (ido-mode t)
     (setq ido-enable-prefix nil
@@ -923,6 +914,38 @@
     ;; Always rescan buffer for imenu
     (set-default 'imenu-auto-rescan t)
   #+end_src
+* Swiper and counsel
+  #+begin_src emacs-lisp
+    ;; it looks like counsel is a requirement for swiper
+    (use-package counsel
+      :ensure t
+      )
+
+    (use-package swiper
+      :ensure try
+      :config
+      (progn
+        (ivy-mode 1)
+        (setq ivy-use-virtual-buffers t)
+        (global-set-key "\C-s" 'swiper)
+        (global-set-key (kbd "C-c C-r") 'ivy-resume)
+        (global-set-key (kbd "<f6>") 'ivy-resume)
+        (global-set-key (kbd "M-x") 'counsel-M-x)
+        (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+        (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+        (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+        (global-set-key (kbd "<f1> l") 'counsel-load-library)
+        (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+        (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+        (global-set-key (kbd "C-c g") 'counsel-git)
+        (global-set-key (kbd "C-c j") 'counsel-git-grep)
+        (global-set-key (kbd "C-c k") 'counsel-ag)
+        (global-set-key (kbd "C-x l") 'counsel-locate)
+        (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+        (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+        ))
+  #+end_src
+
 * LaTeX
   #+begin_src emacs-lisp
     ;;------------------------------------------------------------
@@ -991,7 +1014,7 @@
          ("LaTeX" "%`%l%(mode)%' %t" TeX-run-TeX nil
           (latex-mode doctex-mode)
           :help "Run LaTeX")
-         ("Makeinfo" "makeinfo %(extraopts) %t" TeX-run-compile nil
+          ("Makeinfo" "makeinfo %(extraopts) %t" TeX-run-compile nil
           (texinfo-mode)
           :help "Run Makeinfo with Info output")
          ("Makeinfo HTML" "makeinfo %(extraopts) --html %t" TeX-run-compile nil

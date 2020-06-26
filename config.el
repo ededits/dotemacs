@@ -31,65 +31,6 @@
 (use-package monokai-theme
   :ensure t)
 
-;; (use-package helm
-;;   :ensure t)
-
-;; (use-package helm-swoop
-;;   :ensure t)
-
-;; (use-package migemo
-;;   :ensure t)
-
-;; (defun init--install-packages ()
-;;   (packages-install
-;;    (cons 'auctex gnu)
-;;    ;;(cons 'eglot gnu)
-;;    (cons 'use-package melpa)
-;;    (cons 'use-package melpa)
-;;    (cons 'smooth-scrolling melpa)
-;;    (cons 'undo-tree gnu)
-;;    (cons 'expand-region melpa) ;; Increase selected region by semantic units.
-;;    (cons 'helm melpa)
-;;    (cons 'helm-swoop melpa)
-;;    (cons 'migemo melpa) ;; this is for japaneze character and helm,
-;;                         ;; but for some reason helm-swoop won't work
-;;                         ;; without it. (cons 'move-text melpa)
-;;    (cons 'telephone-line melpa)
-;;    (cons 'monokai-theme melpa)
-;;    ;;    (cons 'popup melpa)
-;;    (cons 'smartparens melpa)
-;;    (cons 'smex melpa)
-;;    (cons 'eglot melpa)
-;;    ;;(cons 'change-inner melpa)
-;;    ;;    (cons 'auto-complete melpa)
-;;    ;;    (cons 'dash melpa)
-;;    ;;    (cons 'yasnippet melpa)
-;;    ;;    (cons 'highlight-indent-guides melpa)
-;;    (cons 'spinner gnu) ;; needed by lsp-mode and I have problems
-;;    ;;                     ;; installing it as an lsp-mode dependancy
-;;    (cons 'lsp-mode melpa)
-;;    (cons 'lsp-ui melpa)
-;;    (cons 'company-lsp melpa)
-;;    (cons 'lsp-treemacs melpa)
-;;    (cons 'projectile melpa)
-;;    (cons 'iedit melpa) ;; interactive edit, very powerful in combination with narrow-to-region
-;;    ;;    ;; these I will only keep here as a reference for the future
-;;    ;;    ;;(cons 'powerline melpa)
-;;    ;;    ;;(cons 'molokai-theme melpa)
-;;    ;;    ;;(cons 'dracula-theme melpa)
-;;    ;;    ;;(cons 'frame-cmds melpa)
-;;    ;;    ;;(cons 'frame-fns melpa)
-;;    ;;    ;;(cons 'auctex melpa)
-;;    ;;    ;;(cons 'elpy melpa)
-;;    ;;    ;; (cons 'counsel melpa)    
-;;    ))
-;; (condition-case nil
-;;     (init--install-packages)
-;;   (error
-;;    (package-refresh-contents)
-;;    (init--install-packages))
-;;   )
-
 ;; get rid of all the unneeded GUI elements
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -237,6 +178,26 @@
     (put 'dired-find-alternate-file 'disabled nil)
     (put 'autopair-newline 'disabled nil)
 
+(use-package ace-window
+  :ensure t
+  :init
+  (progn
+    (global-set-key [remap other-window] 'ace-window)
+    (custom-set-faces
+     '(aw-leading-char-face
+       ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+    ))
+
+;; move to next window
+(global-set-key "\C-x\C-n" 'other-window)
+;; move to previous window
+(global-set-key "\C-x\C-p" 'other-window-backward)
+
+
+;; "Ctrl+c <-" will restore the previous window configuration and 
+;; "Ctrl+c ->" will redo the configuration you just destroyed.
+(winner-mode 1)
+
 ;;------------COLOR THEME--------------------------------------
 ;; let's use telephone-line
 (require 'telephone-line)
@@ -350,7 +311,7 @@
 
   ;; Set default font
   (set-face-attribute 'default nil
-                      :family "PragmataPro"
+                      :family "Pragmata Pro"
                       :height 140
                       :weight 'normal
                       :width 'normal)
@@ -375,7 +336,7 @@
         trash-directory "~/.Trash/emacs")
 
   ;; Ignore .DS_Store files with ido mode
-  (add-to-list 'ido-ignore-files "\\.DS_Store")
+  ;;(add-to-list 'ido-ignore-files "\\.DS_Store")
 
   ;; Don't open files from the workspace in a new frame
   (setq ns-pop-up-frames nil)
@@ -744,7 +705,6 @@ region-end is used."
 (global-set-key (kbd "C-.") 'er/expand-region)
 (global-set-key (kbd "C-,") 'er/contract-region)
 
-
 ;; Smart M-x
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
@@ -781,34 +741,17 @@ region-end is used."
 (global-set-key (kbd "M-w") 'save-region-or-current-line)
 (global-set-key (kbd "M-W") '(lambda () (interactive) (save-region-or-current-line 1)))
 
-
-;; Make shell more convenient, and suspend-frame less
-;; suspicious
-;; (global-set-key (kbd "C-z") 'shell)
-;; (global-set-key (kbd "C-x M-z") 'suspend-frame)
-
-
-;; vim's ci and co commands
-;;(global-set-key (kbd "M-I") 'change-inner)
-;;(global-set-key (kbd "M-O") 'change-outer)              
+;; ;; File finding
+;; (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
+;; (global-set-key (kbd "C-c y") 'bury-buffer)
+;; (global-set-key (kbd "C-x C-b") 'ibuffer)
+;; (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
+;; ;; helm-recentf instead please
+;; (global-set-key (kbd "C-x f") 'helm-recentf)
 
 
-
-;; Create/delete new frame
-(define-key global-map (kbd "C-x C-n") 'make-frame-command)
-(global-set-key (kbd "C-x C-c") 'delete-frame)
-
-;; File finding
-(global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
-(global-set-key (kbd "C-c y") 'bury-buffer)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-;;(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
-;; helm-recentf instead please
-(global-set-key (kbd "C-x f") 'helm-recentf)
-
-
-;; Edit file with sudo
-(global-set-key (kbd "M-s e") 'sudo-edit)
+;; ;; Edit file with sudo
+;; (global-set-key (kbd "M-s e") 'sudo-edit)
 
 
 ;; Window switching
@@ -897,54 +840,37 @@ region-end is used."
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 
-;; move to next window
-(global-set-key "\C-x\C-n" 'other-window)
-;; move to previous window
-(global-set-key "\C-x\C-p" 'other-window-backward)
-
-
-;; "Ctrl+c <-" will restore the previous window configuration and 
-;; "Ctrl+c ->" will redo the configuration you just destroyed.
-(winner-mode 1)
-
-
 ;; Add color to a shell running in emacs M-x shell
 (global-set-key (kbd "C-c s") 'eshell)
 
+;; it looks like counsel is a requirement for swiper
+(use-package counsel
+  :ensure t
+  )
 
-(provide 'setup-keybindings)
-
-(require 'ido)
-(ido-mode t)
-(setq ido-enable-prefix nil
-      ido-enable-flex-matching t
-      ido-case-fold nil
-      ido-auto-merge-work-directories-length -1
-      ido-create-new-buffer 'always
-      ido-use-filename-at-point nil
-      ido-max-prospects 10)
-
-(add-hook
- 'ido-setup-hook
- (lambda ()
-   ;; Go straight home
-   (define-key ido-file-completion-map
-     (kbd "~")
-     (lambda ()
-       (interactive)
-       (cond
-        ((looking-back "~/") (insert "projects/"))
-        ((looking-back "/") (insert "~/"))
-        (:else (call-interactively 'self-insert-command)))))
-
-   ;; Use C-w to go back up a dir to better match normal usage of C-w
-   ;; - insert current file name with C-x C-w instead.
-   (define-key ido-file-completion-map (kbd "C-w") 'ido-delete-backward-updir)
-   (define-key ido-file-completion-map (kbd "C-x C-w") 'ido-copy-current-file-name)))
-
-
-;; Always rescan buffer for imenu
-(set-default 'imenu-auto-rescan t)
+(use-package swiper
+  :ensure try
+  :config
+  (progn
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (global-set-key "\C-s" 'swiper)
+    (global-set-key (kbd "C-c C-r") 'ivy-resume)
+    (global-set-key (kbd "<f6>") 'ivy-resume)
+    (global-set-key (kbd "M-x") 'counsel-M-x)
+    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+    (global-set-key (kbd "<f1> l") 'counsel-load-library)
+    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+    (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+    (global-set-key (kbd "C-c g") 'counsel-git)
+    (global-set-key (kbd "C-c j") 'counsel-git-grep)
+    (global-set-key (kbd "C-c k") 'counsel-ag)
+    (global-set-key (kbd "C-x l") 'counsel-locate)
+    (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+    ))
 
 ;;------------------------------------------------------------
 ;; LaTeX
@@ -1012,7 +938,7 @@ region-end is used."
      ("LaTeX" "%`%l%(mode)%' %t" TeX-run-TeX nil
       (latex-mode doctex-mode)
       :help "Run LaTeX")
-     ("Makeinfo" "makeinfo %(extraopts) %t" TeX-run-compile nil
+      ("Makeinfo" "makeinfo %(extraopts) %t" TeX-run-compile nil
       (texinfo-mode)
       :help "Run Makeinfo with Info output")
      ("Makeinfo HTML" "makeinfo %(extraopts) --html %t" TeX-run-compile nil
