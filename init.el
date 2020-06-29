@@ -3,7 +3,7 @@
 
 ;;(defvar melpa '("melpa" . "http://melpa.milkbox.net/packages/"))
 (defvar gnu '("gnu" . "http://elpa.gnu.org/packages/"))
-(defvar melpa '("melpa" . "https://melpa.org/packages/"))
+(defvar melpa '("melpa" . "http://melpa.org/packages/"))
 
 ;; Add melpa to package repos
 (add-to-list 'package-archives melpa)
