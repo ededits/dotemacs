@@ -50,133 +50,133 @@
 (setq ring-bell-function 'ignore)
 
 ;; Set up load path
-    ;; restore the same buffers that were opened last time
-    (setq desktop-restore-eager 20)
-    (desktop-save-mode 1)
-    (savehist-mode 1)
+;; restore the same buffers that were opened last time
+(setq desktop-restore-eager 20)
+(desktop-save-mode 1)
+(savehist-mode 1)
 
-    ;; place all backups in one directory (~/.emacs.d/backup)
-    (setq
-     backup-by-copying t      ; don't clobber symlinks
-     backup-directory-alist
-     '(("." . "~/.emacs.d/backup"))    ; don't litter my fs tree
-     delete-old-versions t
-     kept-new-versions 6
-     kept-old-versions 2
-     version-control t)       ; use versioned backups
-    ;; the same thing for temporary files.
-    (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/backup/\\1" t)))
+;; place all backups in one directory (~/.emacs.d/backup)
+(setq
+ backup-by-copying t      ; don't clobber symlinks
+ backup-directory-alist
+ '(("." . "~/.emacs.d/backup"))    ; don't litter my fs tree
+ delete-old-versions t
+ kept-new-versions 6
+ kept-old-versions 2
+ version-control t)       ; use versioned backups
+;; the same thing for temporary files.
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/backup/\\1" t)))
 
-    ;; Save point position between sessions
-    (require 'saveplace)
-    (setq-default save-place t)
-    (setq save-place-file (expand-file-name ".places" user-emacs-directory))
+;; Save point position between sessions
+(require 'saveplace)
+(setq-default save-place t)
+(setq save-place-file (expand-file-name ".places" user-emacs-directory))
 
 
-    ;; Allow pasting selection outside of Emacs
-    (setq x-select-enable-clipboard t)
+;; Allow pasting selection outside of Emacs
+(setq x-select-enable-clipboard t)
 
-    ;; Auto refresh buffers
-    (global-auto-revert-mode 1)
+;; Auto refresh buffers
+(global-auto-revert-mode 1)
 
-    ;; Also auto refresh dired, but be quiet about it
-    (setq global-auto-revert-non-file-buffers t)
-    (setq auto-revert-verbose nil)
+;; Also auto refresh dired, but be quiet about it
+(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
 
-    ;; Show keystrokes in progress
-    (setq echo-keystrokes 0.1)
-    ;; Move files to trash when deleting
-    (setq delete-by-moving-to-trash t)
+;; Show keystrokes in progress
+(setq echo-keystrokes 0.1)
+;; Move files to trash when deleting
+(setq delete-by-moving-to-trash t)
 
-    ;; Real emacs knights don't use shift to mark things
-    (setq shift-select-mode nil)
+;; Real emacs knights don't use shift to mark things
+(setq shift-select-mode nil)
 
-    ;; UTF-8 please
-    (setq locale-coding-system 'utf-8)
-    (set-terminal-coding-system 'utf-8)
-    (set-keyboard-coding-system 'utf-8)
-    (set-selection-coding-system 'utf-8)
-    (prefer-coding-system 'utf-8)
+;; UTF-8 please
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
 
-    ;; Remove text in active region if inserting text
-    (delete-selection-mode 1)
+;; Remove text in active region if inserting text
+(delete-selection-mode 1)
 
-    ;; Lines should be 80 characters wide, not 72
-    (setq fill-column 80)
+;; Lines should be 80 characters wide, not 72
+(setq fill-column 80)
 
-    ;; Save a list of recent files visited. (open recent file with C-x f)
-    (recentf-mode 1)
-    (setq recentf-max-saved-items 100)
+;; Save a list of recent files visited. (open recent file with C-x f)
+(recentf-mode 1)
+(setq recentf-max-saved-items 100)
 
-    ;; Undo/redo window configuration with C-c <left>/<right>
-    (winner-mode 1)
+;; Undo/redo window configuration with C-c <left>/<right>
+(winner-mode 1)
 
-    ;; Never insert tabs
-    (set-default 'indent-tabs-mode nil)
+;; Never insert tabs
+(set-default 'indent-tabs-mode nil)
 
-    ;; Show me empty lines after buffer end
-    (set-default 'indicate-empty-lines t)
+;; Show me empty lines after buffer end
+(set-default 'indicate-empty-lines t)
 
-    ;; Easily navigate sillycased words
-    ;; treats constructions like 'thisIsSubwordsSet' as a bunch of words
-    (global-subword-mode 1)
+;; Easily navigate sillycased words
+;; treats constructions like 'thisIsSubwordsSet' as a bunch of words
+(global-subword-mode 1)
 
-    ;; Don't break lines for me, please
-    (setq-default truncate-lines t) 
+;; Don't break lines for me, please
+(setq-default truncate-lines t) 
 
-    ;; Keep cursor away from edges when scrolling up/down
-    ;; see ./site-lisp/smooth-scrolling.el
-    (require 'smooth-scrolling)
-    ;; fix the laggish scrolling please.
-    (setq scroll-conservatively 10000)
-    ;; scroll one line at a time (less "jumpy" than defaults)
-    (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-    (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-    (setq mouse-wheel-follow-mouse '1) ;; scroll window under mouse
-    (setq scroll-step 1) ;; keyboard scroll one line at a time
-    (setq scroll-margin 5)
+;; Keep cursor away from edges when scrolling up/down
+;; see ./site-lisp/smooth-scrolling.el
+(require 'smooth-scrolling)
+;; fix the laggish scrolling please.
+(setq scroll-conservatively 10000)
+;; scroll one line at a time (less "jumpy" than defaults)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse '1) ;; scroll window under mouse
+(setq scroll-step 1) ;; keyboard scroll one line at a time
+(setq scroll-margin 5)
 
-    ;; A bit of misc cargo culting
-    (setq xterm-mouse-mode t)
+;; A bit of misc cargo culting
+(setq xterm-mouse-mode t)
 
-    ;; Represent undo-history as an actual tree (visualize with C-x u)
-    ;; see ./site-lisp/undo-tree.el
-    (setq undo-tree-mode-lighter "")
-    (require 'undo-tree)
-    (global-undo-tree-mode)
+;; Represent undo-history as an actual tree (visualize with C-x u)
+;; see ./site-lisp/undo-tree.el
+(setq undo-tree-mode-lighter "")
+(require 'undo-tree)
+(global-undo-tree-mode)
 
-    ;; Sentences do not need double spaces to end
-    (set-default 'sentence-end-double-space nil)
+;; Sentences do not need double spaces to end
+(set-default 'sentence-end-double-space nil)
 
-    ;; Add parts of each file's directory to the buffer name if not unique
-    (require 'uniquify)
-    (setq uniquify-buffer-name-style 'forward)
+;; Add parts of each file's directory to the buffer name if not unique
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
 
-    ;; A saner ediff
-    (setq ediff-diff-options "-w")
-    (setq ediff-split-window-function 'split-window-horizontally)
-    (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+;; A saner ediff
+(setq ediff-diff-options "-w")
+(setq ediff-split-window-function 'split-window-horizontally)
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
-    ;; Nic says eval-expression-print-level needs to be set to nil (turned off) so
-    ;; that you can always see what's happening.
-    (setq eval-expression-print-level nil)
+;; Nic says eval-expression-print-level needs to be set to nil (turned off) so
+;; that you can always see what's happening.
+(setq eval-expression-print-level nil)
 
-    ;; When popping the mark, continue popping until the cursor actually moves
-    ;; Also, if the last command was a copy - skip past all the expand-region cruft.
-    (defadvice pop-to-mark-command (around ensure-new-position activate)
-      (let ((p (point)))
-        (when (eq last-command 'save-region-or-current-line)
-          ad-do-it
-          ad-do-it
-          ad-do-it)
-        (dotimes (i 10)
-          (when (= p (point)) ad-do-it))))
+;; When popping the mark, continue popping until the cursor actually moves
+;; Also, if the last command was a copy - skip past all the expand-region cruft.
+(defadvice pop-to-mark-command (around ensure-new-position activate)
+  (let ((p (point)))
+    (when (eq last-command 'save-region-or-current-line)
+      ad-do-it
+      ad-do-it
+      ad-do-it)
+    (dotimes (i 10)
+      (when (= p (point)) ad-do-it))))
 
-    ;;;; Run at full power please, and don't ask for confirmation for these commands
-    (put 'downcase-region 'disabled nil)
-    (put 'narrow-to-region 'disabled nil)
-    (put 'dired-find-alternate-file 'disabled nil)
-    (put 'autopair-newline 'disabled nil)
+  ;;;; Run at full power please, and don't ask for confirmation for these commands
+(put 'downcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)
+(put 'autopair-newline 'disabled nil)
 
 (use-package ace-window
   :ensure t
@@ -197,6 +197,9 @@
 ;; "Ctrl+c <-" will restore the previous window configuration and 
 ;; "Ctrl+c ->" will redo the configuration you just destroyed.
 (winner-mode 1)
+
+;; ibuffer is a nicer way to deal with list of buffers
+(global-set-key "\C-x\C-b" 'ibuffer)
 
 ;;------------COLOR THEME--------------------------------------
 ;; let's use telephone-line
@@ -843,34 +846,50 @@ region-end is used."
 ;; Add color to a shell running in emacs M-x shell
 (global-set-key (kbd "C-c s") 'eshell)
 
-;; it looks like counsel is a requirement for swiper
-(use-package counsel
-  :ensure t
-  )
+(require 'ido)
+(ido-mode 1)
+(setq ido-enable-prefix nil
+      ido-enable-flex-matching t
+      ido-case-fold t ;; Non-nil if searching of buffer and file names should ignore case.
+      ido-auto-merge-work-directories-length -1
+      ido-create-new-buffer 'always
+      ido-use-filename-at-point nil
+      ido-max-prospects 10
+      ido-everywhere t)
 
-(use-package swiper
-  :ensure try
-  :config
-  (progn
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t)
-    (global-set-key "\C-s" 'swiper)
-    (global-set-key (kbd "C-c C-r") 'ivy-resume)
-    (global-set-key (kbd "<f6>") 'ivy-resume)
-    (global-set-key (kbd "M-x") 'counsel-M-x)
-    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-    (global-set-key (kbd "<f1> l") 'counsel-load-library)
-    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-    (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-    (global-set-key (kbd "C-c g") 'counsel-git)
-    (global-set-key (kbd "C-c j") 'counsel-git-grep)
-    (global-set-key (kbd "C-c k") 'counsel-ag)
-    (global-set-key (kbd "C-x l") 'counsel-locate)
-    (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
-    ))
+;; Always rescan buffer for imenu
+(set-default 'imenu-auto-rescan t)
+
+;; let's make ido vertical
+(use-package ido-vertical-mode
+  :ensure t
+  :init
+  (ido-vertical-mode 1))
+(setq ido-vertical-define-keys 'C-n-and-C-p-only)
+
+
+;; smex turns ido goodness for the M-x, when you interactively enter your commands
+(use-package smex
+  :ensure t
+  :init (smex-initialize)
+  :bind ("M-x" . smex))
+;; (add-hook
+;;  'ido-setup-hook
+;;  (lambda ()
+;;    ;; Go straight home
+;;    (define-key ido-file-completion-map
+;;      (kbd "~")
+;;      (lambda ()
+;;        (interactive)
+;;        (cond
+;;         ((looking-back "~/") (insert "projects/"))
+;;         ((looking-back "/") (insert "~/"))
+;;         (:else (call-interactively 'self-insert-command)))))
+
+;;    ;; Use C-w to go back up a dir to better match normal usage of C-w
+;;    ;; - insert current file name with C-x C-w instead.
+;;    (define-key ido-file-completion-map (kbd "C-w") 'ido-delete-backward-updir)
+;;    (define-key ido-file-completion-map (kbd "C-x C-w") 'ido-copy-current-file-name)))
 
 ;;------------------------------------------------------------
 ;; LaTeX
@@ -1159,3 +1178,11 @@ region-end is used."
 (require 'server)
 (unless (server-running-p)
   (server-start))
+
+(use-package auto-complete
+  :ensure t
+  :init
+  (progn
+    (ac-config-default)
+    (global-auto-complete-mode t)
+    ))

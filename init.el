@@ -88,7 +88,7 @@
      (output-html "xdg-open")))
  '(font-latex-fontify-script nil)
  '(package-selected-packages
-   '(counsel org-bullets monokai-theme iedit projectile lsp-treemacs company-lsp lsp-ui lsp-mode spinner eglot smex smartparens telephone-line expand-region undo-tree smooth-scrolling try use-package))
+   '(ido-vertical-mode auto-complete counsel org-bullets monokai-theme iedit projectile lsp-treemacs company-lsp lsp-ui lsp-mode spinner eglot smex smartparens telephone-line expand-region undo-tree smooth-scrolling try use-package))
  '(preview-gs-command "/usr/local/bin/gs")
  '(preview-gs-options
    '("-q" "-dNOPAUSE" "-DNOPLATFONTS" "-dPrinted" "-dTextAlphaBits=4" "-dGraphicsAlphaBits=4")))
