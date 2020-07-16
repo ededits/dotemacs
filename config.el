@@ -846,50 +846,34 @@ region-end is used."
 ;; Add color to a shell running in emacs M-x shell
 (global-set-key (kbd "C-c s") 'eshell)
 
-(require 'ido)
-(ido-mode 1)
-(setq ido-enable-prefix nil
-      ido-enable-flex-matching t
-      ido-case-fold t ;; Non-nil if searching of buffer and file names should ignore case.
-      ido-auto-merge-work-directories-length -1
-      ido-create-new-buffer 'always
-      ido-use-filename-at-point nil
-      ido-max-prospects 10
-      ido-everywhere t)
-
-;; Always rescan buffer for imenu
-(set-default 'imenu-auto-rescan t)
-
-;; let's make ido vertical
-(use-package ido-vertical-mode
+;; it looks like counsel is a requirement for swiper
+(use-package counsel
   :ensure t
-  :init
-  (ido-vertical-mode 1))
-(setq ido-vertical-define-keys 'C-n-and-C-p-only)
+  )
 
-
-;; smex turns ido goodness for the M-x, when you interactively enter your commands
-(use-package smex
-  :ensure t
-  :init (smex-initialize)
-  :bind ("M-x" . smex))
-;; (add-hook
-;;  'ido-setup-hook
-;;  (lambda ()
-;;    ;; Go straight home
-;;    (define-key ido-file-completion-map
-;;      (kbd "~")
-;;      (lambda ()
-;;        (interactive)
-;;        (cond
-;;         ((looking-back "~/") (insert "projects/"))
-;;         ((looking-back "/") (insert "~/"))
-;;         (:else (call-interactively 'self-insert-command)))))
-
-;;    ;; Use C-w to go back up a dir to better match normal usage of C-w
-;;    ;; - insert current file name with C-x C-w instead.
-;;    (define-key ido-file-completion-map (kbd "C-w") 'ido-delete-backward-updir)
-;;    (define-key ido-file-completion-map (kbd "C-x C-w") 'ido-copy-current-file-name)))
+(use-package swiper
+  :ensure try
+  :config
+  (progn
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (global-set-key "\C-s" 'swiper)
+    (global-set-key (kbd "C-c C-r") 'ivy-resume)
+    (global-set-key (kbd "<f6>") 'ivy-resume)
+    (global-set-key (kbd "M-x") 'counsel-M-x)
+    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+    (global-set-key (kbd "<f1> l") 'counsel-load-library)
+    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+    (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+    (global-set-key (kbd "C-c g") 'counsel-git)
+    (global-set-key (kbd "C-c j") 'counsel-git-grep)
+    (global-set-key (kbd "C-c k") 'counsel-ag)
+    (global-set-key (kbd "C-x l") 'counsel-locate)
+    (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+    ))
 
 ;;------------------------------------------------------------
 ;; LaTeX
