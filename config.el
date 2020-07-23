@@ -28,6 +28,10 @@
   :ensure t)
 (use-package iedit 
   :ensure t)
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
 (use-package monokai-theme
   :ensure t)
 
@@ -851,6 +855,11 @@ region-end is used."
   :ensure t
   )
 
+(use-package ivy :demand
+      :config
+      (setq ivy-use-virtual-buffers t
+            ivy-count-format "%d/%d "))
+
 (use-package swiper
   :ensure try
   :config
@@ -861,6 +870,7 @@ region-end is used."
     (global-set-key (kbd "C-c C-r") 'ivy-resume)
     (global-set-key (kbd "<f6>") 'ivy-resume)
     (global-set-key (kbd "M-x") 'counsel-M-x)
+    (global-set-key (kbd "M-y") 'counsel-yank-pop)
     (global-set-key (kbd "C-x C-f") 'counsel-find-file)
     (global-set-key (kbd "<f1> f") 'counsel-describe-function)
     (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
@@ -868,6 +878,7 @@ region-end is used."
     (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
     (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
     (global-set-key (kbd "C-c g") 'counsel-git)
+    (global-set-key (kbd "C-c c") 'counsel-compile)
     (global-set-key (kbd "C-c j") 'counsel-git-grep)
     (global-set-key (kbd "C-c k") 'counsel-ag)
     (global-set-key (kbd "C-x l") 'counsel-locate)
@@ -1027,6 +1038,8 @@ region-end is used."
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
+;; make <s <e and other expansions work again
+(use-package org-tempo)
 ;; org-mode: Don't ruin S-arrow to switch windows please (use M-+ and M-- instead to toggle)
 (setq org-replace-disputed-keys t)
 ;; Fontify org-mode code blocks
@@ -1152,21 +1165,108 @@ region-end is used."
 (add-hook 'eshell-mode-hook
           '(lambda () (define-key eshell-mode-map "\C-l" 'eshell-clear)))
 
-;; load all the LSP goodness
-(require 'lsp-mode)
+(use-package lsp-mode
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         (python-mode . lsp)
+         ;; if you want which-key integration
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
 
-;; change prefix for all the lsp- commads:
-(setq lsp-keymap-prefix "C-c C-l")
+;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
 (define-key lsp-mode-map (kbd "C-c C-l") lsp-command-map)
+;;(setq lsp-keymap-prefix "C-c C-l")
+
+;; optionally
+(use-package lsp-ui :commands lsp-ui-mode)
+
+;; optionally if you want to use debugger
+;;(use-package dap-mode
+;; :ensure t)
+;;(use-package dap-python
+;;  :ensure t);;  to load the dap adapter for your language
+
+;; Prefer using lsp-ui (flycheck) over flymake.
+(setq lsp-prefer-flymake nil)
+
+;; lets use flake8 as linter instead of default pylint
+;; unfortunatelly when using lsp emacs still fails to recognize .flake8 file with rules. 
+;; so this is unfinished
+(defun lsp-set-cfg ()
+  (let ((lsp-cfg `(:pyls (:configurationSources ("flake8")))))
+    ;; TODO: check lsp--cur-workspace here to decide per server / project
+    (lsp--set-configuration lsp-cfg)))
+
+(add-hook 'lsp-after-initialize-hook 'lsp-set-cfg)
+(setq lsp-pyls-plugins-pylint-enabled 'nil)
+;; tune lsp mode Adjust gc-cons-threshold. The default setting is too
+;; low for lsp-mode's needs due to the fact that client/server
+;; communication generates a lot of memory/garbage. Let's set it to big number (100mb)
+(setq gc-cons-threshold 100000000)
+
+
+;; Increase the amount of data which Emacs reads from the process.
+;; Again the emacs default is too low 4k considering that the some of
+;; the language server responses are in 800k - 3M range.
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+
+;; Optional: fine-tune lsp-idle-delay. This variable determines how
+;; often lsp-mode will refresh the highlights, lenses, links, etc
+;; while you type.
+;; (setq lsp-idle-delay 0.500)
+
+(use-package flycheck
+  :ensure t
+  :init
+  (global-flycheck-mode t))
+(setq flycheck-python-flake8-executable "flake8")
+;; let's disable python-pylint checker, it is reported to be slow.
+;; also I want to only use flake8, so I will disable lsp checker as well
+(setq-default flycheck-disabled-checkers '(python-pylint python-pycompile))
+;;(setq-default flycheck-disabled-checkers '(python-pylint python-pycompile lsp))
+;;(setq-default flycheck-checker '(python-flake8))
+
+;; please use my custom python here
+;; (setenv "IPY_TEST_SIMPLE_PROMPT" "1")
+;; (setq python-shell-interpreter "ipython"
+;;       python-shell-interpreter-args "-i")
+
+(setq exec-path (append exec-path '("/opt/anaconda3/bin")))
+;;(setq exec-path (append exec-path '("/Users/eugene/.local/bin")))
+(setq python-shell-interpreter "/opt/anaconda3/bin/ipython")
+(setq python-shell-interpreter-args "-i --nosep")
+(setq python-indent-offset 4)
+
+
+;; ;;--------------------------------------------------------
+;; ;; programming: make
+;; (global-set-key "\C-c\C-]" (quote compile))
+;; ;; compilation window size
+;; (setq compilation-window-height 8)
+;; ;; to make compilation window go away
+;; ;; if there are no compilation errors
+;; (setq compilation-finish-function
+;;       (lambda (buf str)
+;;         (if (string-match "exited abnormally" str)
+;;             ;;there were errors
+;;             (message "compilation errors, press C-x ` to visit")
+;;           ;;no errors, make the compilation window go away in 0.5 seconds
+;;           (run-at-time 0.5 nil 'delete-windows-on buf)
+;;           (message "NO COMPILATION ERRORS!"))))
+;; ;;--------------------------------------------------------
 
 (require 'server)
 (unless (server-running-p)
   (server-start))
 
-(use-package auto-complete
+(use-package company
   :ensure t
-  :init
-  (progn
-    (ac-config-default)
-    (global-auto-complete-mode t)
-    ))
+  :config
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 3)
+
+  (global-company-mode t))
+
+(use-package company-lsp
+  :ensure t
+  :config
+  (push 'company-lsp company-backends))
