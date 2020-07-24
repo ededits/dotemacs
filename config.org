@@ -1164,7 +1164,7 @@
         (insert "\n#+end_example\n")))
 
     (defun wrap-src (b e)
-      "wraps active region into #+begin_src .. #+end_src construct"
+      "Wraps active region into #+begin_src .. #+end_src construct."
       (interactive "r")
       (save-restriction
         (narrow-to-region b e)

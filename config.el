@@ -1221,7 +1221,7 @@ region-end is used."
 (setq flycheck-python-flake8-executable "flake8")
 ;; let's disable python-pylint checker, it is reported to be slow.
 ;; also I want to only use flake8, so I will disable lsp checker as well
-(setq-default flycheck-disabled-checkers '(python-pylint python-pycompile))
+(setq-default flycheck-disabled-checkers '(python-pylint python-pycompile lsp))
 ;;(setq-default flycheck-disabled-checkers '(python-pylint python-pycompile lsp))
 ;;(setq-default flycheck-checker '(python-flake8))
 
