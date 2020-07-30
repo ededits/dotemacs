@@ -685,10 +685,10 @@ region-end is used."
     (deactivate-mark))
   (call-interactively 'isearch-backward))
 
-(eval-after-load "multiple-cursors"
-  '(progn
-     (unsupported-cmd isearch-forward-use-region ".")
-     (unsupported-cmd isearch-backward-use-region ".")))
+;; (eval-after-load "multiple-cursors"
+;;   '(progn
+;;      (unsupported-cmd isearch-forward-use-region ".")
+;;      (unsupported-cmd isearch-backward-use-region ".")))
 
 (defun sudo-edit (&optional arg)
   (interactive "p")
@@ -796,8 +796,8 @@ region-end is used."
 
 
 ;; ;; Comment/uncomment block                  
-(global-set-key (kbd "C-c c") 'comment-or-uncomment-region)
-(global-set-key (kbd "C-c u") 'uncomment-region)
+(global-set-key (kbd "C-x c") 'comment-or-uncomment-region)
+(global-set-key (kbd "C-x u") 'uncomment-region)
 
 ;; Create scratch buffer                       
 (global-set-key (kbd "C-c b") 'create-scratch-buffer)
@@ -886,12 +886,55 @@ region-end is used."
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
     ))
 
+;; (use-package auctex
+;;   :ensure t
+;;   :defer t
+;;   :hook
+;;   (TeX-mode . TeX-PDF-mode)
+;;   (TeX-mode . company-mode)
+;;   :init
+;;   (setq reftex-plug-into-AUCTeX t)
+;;   (setq TeX-parse-self t)
+;;   (setq-default TeX-master nil)
+
+;;   (setq TeX-open-quote  "<<")
+;;   (setq TeX-close-quote ">>")
+;;   (setq TeX-electric-sub-and-superscript t)
+;;   (setq font-latex-fontify-script nil)
+;;   (setq TeX-show-compilation nil)
+
+;;   (setq preview-scale-function 1.5)
+;;   (setq preview-gs-options
+;;         '("-q" "-dNOSAFER" "-dNOPAUSE" "-DNOPLATFONTS"
+;;           "-dPrinted" "-dTextAlphaBits=4" "-dGraphicsAlphaBits=4"))
+
+;;   (setq reftex-label-alist '(AMSTeX)))
+
+;; ;; (use-package company-auctex
+;; ;;   :ensure t
+;; ;;   :init
+;; ;;   (company-auctex-
+;; init))
+
+;; (use-package company-math
+;;   :ensure t
+;;   :init
+;;   (add-to-list 'company-backends 'company-math))
+
+;; (use-package company-reftex
+;;   :ensure t
+;;   :init
+;;   (add-to-list 'company-backends 'company-reftex-citations)
+;;   (add-to-list 'company-backends 'company-reftex-labels))
+
+
+
 ;;------------------------------------------------------------
 ;; LaTeX
 ;;------------------------------------------------------------
 ;; SHIFT+CMD+click -- opens Skim and positions cursor at the same place
 ;;(setq exec-path (append exec-path '("/usr/texbin/")))
-                                        ;--------------------------------------------------
+;--------------------------------------------------
 ;; (setq exec-path (append exec-path '("/opt/local/bin")))
 (setenv "PATH" (concat "/Library/TeX/texbin:" (getenv "PATH")))
 ;; (setenv "PATH" (concat "/opt/local/bin:" (getenv "PATH")))
@@ -1069,7 +1112,7 @@ region-end is used."
     (insert "\n#+end_example\n")))
 
 (defun wrap-src (b e)
-  "wraps active region into #+begin_src .. #+end_src construct"
+  "Wraps active region into #+begin_src .. #+end_src construct."
   (interactive "r")
   (save-restriction
     (narrow-to-region b e)
@@ -1090,9 +1133,9 @@ region-end is used."
  )
 
 ;; enable export to markdown
-(eval-after-load "org"
-  '(require 'ox-md nil t))
-'(region ((t (:background "steel blue"))))
+;; (eval-after-load "org"
+;;   '(require 'ox-md nil t))
+;; '(region ((t (:background "steel blue"))))
 
 
 (org-babel-do-load-languages

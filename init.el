@@ -35,7 +35,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(which-key dap-python dap-mode use-package undo-tree try telephone-line smooth-scrolling smex smartparens projectile org-bullets monokai-theme migemo lsp-ui lsp-treemacs jedi iedit ido-vertical-mode helm-swoop flycheck expand-region eglot counsel company-lsp better-shell auctex)))
+   '(telega which-key use-package undo-tree try telephone-line smooth-scrolling smex smartparens projectile org-bullets monokai-theme migemo lsp-ui jedi iedit ido-vertical-mode helm-swoop flycheck expand-region eglot dap-mode counsel company-lsp better-shell auctex)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
