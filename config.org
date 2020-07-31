@@ -1439,6 +1439,13 @@
      ;; ;;--------------------------------------------------------
    #+end_src
 ** C/C++
+   #+begin_src emacs-lisp
+     (setq ccls-executable "/opt/local/bin/ccls-clang-9.0")
+     (use-package ccls
+       :ensure t
+       :hook ((c-mode c++-mode objc-mode cuda-mode) .
+              (lambda () (require 'ccls) (lsp))))
+   #+end_src
 * Emacs server
   #+begin_src emacs-lisp
     (require 'server)

@@ -1297,6 +1297,12 @@ region-end is used."
 ;;           (message "NO COMPILATION ERRORS!"))))
 ;; ;;--------------------------------------------------------
 
+(setq ccls-executable "/opt/local/bin/ccls-clang-9.0")
+(use-package ccls
+  :ensure t
+  :hook ((c-mode c++-mode objc-mode cuda-mode) .
+         (lambda () (require 'ccls) (lsp))))
+
 (require 'server)
 (unless (server-running-p)
   (server-start))
