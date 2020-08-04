@@ -1659,3 +1659,12 @@
     (use-package yasnippet-snippets
       :ensure t)
   #+end_src
+* Which-key
+  This little utility shows you a map of all the available keys
+  #+begin_src emacs-lisp
+    (which-key-setup-side-window-bottom)
+    ;; (which-key-setup-side-window-right)
+    ;; Allow C-h to trigger which-key before it is done automatically
+    ;; (setq which-key-show-early-on-C-h t)
+    (define-key which-key-mode-map (kbd "C-x /") 'which-key-C-h-dispatch)
+  #+end_src
