@@ -226,9 +226,9 @@
 ** general appearance settings
    #+begin_src emacs-lisp
      ;;------------COLOR THEME--------------------------------------
-     ;; let's use telephone-line
-     (require 'telephone-line)
-     (telephone-line-mode 1)
+     ;; commented out -- I am using doom-modeline instead
+     ;;(require 'telephone-line)
+     ;;(telephone-line-mode 1)
      ;; Highlight matching parentheses when the point is on them.
      (show-paren-mode 1) 
 
@@ -354,25 +354,25 @@
 
      ;; Whether display the modal state icon.
      ;; Including `evil', `overwrite', `god', `ryo' and `xah-fly-keys', etc.
-     (setq doom-modeline-modal-icon t)
+     ;;(setq doom-modeline-modal-icon t)
 
      ;; Whether display the mu4e notifications. It requires `mu4e-alert' package.
-     (setq doom-modeline-mu4e nil)
+     ;; (setq doom-modeline-mu4e nil)
 
      ;; Whether display the gnus notifications.
-     (setq doom-modeline-gnus t)
+     ;; (setq doom-modeline-gnus t)
 
      ;; Wheter gnus should automatically be updated and how often (set to 0 or smaller than 0 to disable)
-     (setq doom-modeline-gnus-timer 2)
+     ;; (setq doom-modeline-gnus-timer 2)
 
      ;; Wheter groups should be excludede when gnus automatically being updated.
-     (setq doom-modeline-gnus-excluded-groups '("dummy.group"))
+     ;; (setq doom-modeline-gnus-excluded-groups '("dummy.group"))
 
      ;; Whether display the IRC notifications. It requires `circe' or `erc' package.
-     (setq doom-modeline-irc t)
+     ;; (setq doom-modeline-irc t)
 
      ;; Function to stylize the irc buffer names.
-     (setq doom-modeline-irc-stylize 'identity)
+     ;; (setq doom-modeline-irc-stylize 'identity)
 
      ;; Whether display the environment version.
      (setq doom-modeline-env-version t)
@@ -1409,10 +1409,11 @@
               '(lambda () (define-key eshell-mode-map "\C-l" 'eshell-clear)))
   #+end_src
 * LSP
-  #+begin_src $emacs-lisp
+  #+begin_src emacs-lisp
     (use-package lsp-mode
       :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
              (python-mode . lsp)
+             (c-mode . lsp)
              ;; if you want which-key integration
              (lsp-mode . lsp-enable-which-key-integration))
       :commands lsp)
@@ -1422,7 +1423,9 @@
     ;;(setq lsp-keymap-prefix "C-c C-l")
 
     ;; optionally
-    (use-package lsp-ui :commands lsp-ui-mode)
+    (use-package lsp-ui
+      :ensure t
+      :commands lsp-ui-mode)
 
     ;; optionally if you want to use debugger
     ;;(use-package dap-mode
@@ -1508,6 +1511,44 @@
      (setq-default flycheck-disabled-checkers '(python-pylint python-pycompile lsp))
      ;;(setq-default flycheck-disabled-checkers '(python-pylint python-pycompile lsp))
      ;;(setq-default flycheck-checker '(python-flake8))
+
+     ;; let's use a nice round ball for errors/warnings indication
+     (define-fringe-bitmap 'flycheck-fringe-bitmap-ball
+       (vector #b00000000
+               #b00000000
+               #b00000000
+               #b00000000
+               #b00000000
+               #b00000000
+               #b00000000
+               #b00011100
+               #b00111110
+               #b00111110
+               #b00111110
+               #b00011100
+               #b00000000
+               #b00000000
+               #b00000000
+               #b00000000
+               #b00000000))
+
+     (flycheck-define-error-level 'error
+       :severity 2
+       :overlay-category 'flycheck-error-overlay
+       :fringe-bitmap 'flycheck-fringe-bitmap-ball
+       :fringe-face 'flycheck-fringe-error)
+
+     (flycheck-define-error-level 'warning
+       :severity 1
+       :overlay-category 'flycheck-warning-overlay
+       :fringe-bitmap 'flycheck-fringe-bitmap-ball
+       :fringe-face 'flycheck-fringe-warning)
+
+     (flycheck-define-error-level 'info
+       :severity 0
+       :overlay-category 'flycheck-info-overlay
+       :fringe-bitmap 'flycheck-fringe-bitmap-ball
+       :fringe-face 'flycheck-fringe-info)
    #+end_src
 ** Python setup
    #+begin_src emacs-lisp
@@ -1542,13 +1583,29 @@
      ;; ;;--------------------------------------------------------
    #+end_src
 ** C/C++
-   #+begin_src $emacs-lisp
-     (setq ccls-executable "/opt/local/bin/ccls-clang-9.0")
-     (use-package ccls
-       :ensure t
-       :hook ((c-mode c++-mode objc-mode cuda-mode) .
-              (lambda () (require 'ccls) (lsp))))
+   #+begin_src emacs-lisp
+     (add-to-list 'eglot-server-programs '((c++-mode c-mode) "/opt/local/bin/clangd-mp-9.0"))
+     (add-hook 'c-mode-hook 'eglot-ensure)
+     (add-hook 'c++-mode-hook 'eglot-ensure)
    #+end_src
+**** probably to disable   
+     #+begin_src $emacs-lisp
+       (use-package lsp-clangd
+         :ensure t
+         :load-path
+         "/opt/local/bin/clangd-mp-9.0"
+         :init
+         (add-hook 'c-mode--hook #'lsp-clangd-c-enable)
+         (add-hook 'c++-mode-hook #'lsp-clangd-c++-enable)
+         (add-hook 'objc-mode-hook #'lsp-clangd-objc-enable))
+     #+end_src
+     #+begin_src $emacs-lisp
+       (setq ccls-executable "/opt/local/bin/ccls-clang-9.0")
+       (use-package ccls
+         :ensure t
+         :hook ((c-mode c++-mode objc-mode cuda-mode) .
+                (lambda () (require 'ccls) (lsp))))
+     #+end_src
 * Emacs server
   #+begin_src emacs-lisp
     (require 'server)
@@ -1580,7 +1637,6 @@
        :config
        (setq company-idle-delay 0)
        (setq company-minimum-prefix-length 3)
-
        (global-company-mode t))
 
      (use-package company-lsp
@@ -1588,3 +1644,18 @@
        :config
        (push 'company-lsp company-backends))
    #+end_src
+* YAsnippet
+  #+begin_src emacs-lisp
+    ;; Unlike autocomplete which suggests words / symbols, snippets are
+    ;; pre-prepared templates which you fill in. Type the shortcut and
+    ;; press TAB to complete, or M-/ to autosuggest a snippet
+    (use-package yasnippet
+      :ensure t
+      :config
+      (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
+      (yas-global-mode 1))
+    ;; Install some premade snippets (in addition to personal ones stored
+    ;; above)
+    (use-package yasnippet-snippets
+      :ensure t)
+  #+end_src
