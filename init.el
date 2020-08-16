@@ -34,8 +34,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(yasnippet-snippets yasnippet flycheck org-bullets counsel doom-themes doom-modeline which-key iedit projectile lsp-treemacs company-lsp lsp-ui lsp-mode spinner eglot smex smartparens telephone-line expand-region undo-tree smooth-scrolling try use-package)))
+ '(custom-safe-themes
+   '("f2927d7d87e8207fa9a0a003c0f222d45c948845de162c885bf6ad2a255babfd" default)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

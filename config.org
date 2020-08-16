@@ -22,12 +22,11 @@
       :ensure t)
     (use-package lsp-ui
       :ensure t)
-    (use-package company-lsp
-      :ensure t)
+    ;; (use-package company-lsp
+    ;;   :ensure t)
     (use-package lsp-treemacs
       :ensure t)
-    (use-package projectile
-      :ensure t)
+
     (use-package iedit 
       :ensure t)
     (use-package which-key
@@ -263,7 +262,7 @@
      ;; e.g. `projectile' doesn't handle symlink folders well, while `project' is unable
      ;; to hanle sub-projects.
      ;; You can specify one if you encounter the issue.
-     (setq doom-modeline-project-detection 'project)
+     (setq doom-modeline-project-detection 'projectile)
 
      ;; Determines the style used by `doom-modeline-buffer-file-name'.
      ;;
@@ -285,6 +284,8 @@
      ;; with tramp, please try `file-name' style.
      ;; Please refer to https://github.com/bbatsov/projectile/issues/657.
      (setq doom-modeline-buffer-file-name-style 'auto)
+     (setq doom-modeline-buffer-file-name-style 'buffer-name)
+     (setq doom-modeline-buffer-file-name-style 'relative-from-project)
 
      ;; Whether display icons in the mode-line.
      ;; While using the server mode in GUI, should set the value explicitly.
@@ -990,6 +991,21 @@
 
 
   #+end_src
+* projectile
+  #+begin_src emacs-lisp
+    (use-package projectile
+      :ensure t
+      :config
+      (projectile-global-mode)
+      (setq projectile-completion-system 'ivy))
+    (use-package counsel-projectile
+      :ensure t
+      :config
+      (counsel-projectile-mode))
+    (projectile-mode +1)
+    (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  #+end_src
 * ido
   #+begin_src $emacs-lisp
     (require 'ido)
@@ -1583,29 +1599,30 @@
      ;; ;;--------------------------------------------------------
    #+end_src
 ** C/C++
-   #+begin_src emacs-lisp
-     (add-to-list 'eglot-server-programs '((c++-mode c-mode) "/opt/local/bin/clangd-mp-9.0"))
-     (add-hook 'c-mode-hook 'eglot-ensure)
-     (add-hook 'c++-mode-hook 'eglot-ensure)
-   #+end_src
-**** probably to disable   
-     #+begin_src $emacs-lisp
-       (use-package lsp-clangd
-         :ensure t
-         :load-path
-         "/opt/local/bin/clangd-mp-9.0"
-         :init
-         (add-hook 'c-mode--hook #'lsp-clangd-c-enable)
-         (add-hook 'c++-mode-hook #'lsp-clangd-c++-enable)
-         (add-hook 'objc-mode-hook #'lsp-clangd-objc-enable))
-     #+end_src
-     #+begin_src $emacs-lisp
-       (setq ccls-executable "/opt/local/bin/ccls-clang-9.0")
-       (use-package ccls
-         :ensure t
-         :hook ((c-mode c++-mode objc-mode cuda-mode) .
-                (lambda () (require 'ccls) (lsp))))
-     #+end_src
+*** LSP, with clangd
+    #+begin_src emacs-lisp
+      (setq lsp-clients-clangd-executable "/opt/local/bin/clangd-mp-9.0")
+      (add-hook 'c-mode--hook #'lsp-clangd-c-enable)
+      (add-hook 'c++-mode-hook #'lsp-clangd-c++-enable)
+      (add-hook 'objc-mode-hook #'lsp-clangd-objc-enable)
+    #+end_src
+*** eglot 
+    #+begin_src $emacs-lisp
+      (add-to-list 'eglot-server-programs '((c++-mode c-mode) "/opt/local/bin/clangd-mp-9.0"))
+      (add-hook 'c-mode-hook 'eglot-ensure)
+      (add-hook 'c++-mode-hook 'eglot-ensure)
+    #+end_src
+*** lsp with ccls 
+    #+begin_src &emacs-lisp
+      (use-package ccls
+        :ensure t
+        :config
+        (setq ccls-executable "/opt/local/bin/ccls-clang-9.0")
+        (setq lsp-prefer-flymake nil)
+        (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
+        :hook ((c-mode c++-mode objc-mode cuda-mode) .
+               (lambda () (require 'ccls) (lsp))))
+    #+end_src
 * Emacs server
   #+begin_src emacs-lisp
     (require 'server)
@@ -1639,10 +1656,10 @@
        (setq company-minimum-prefix-length 3)
        (global-company-mode t))
 
-     (use-package company-lsp
-       :ensure t
-       :config
-       (push 'company-lsp company-backends))
+     ;; (use-package company-lsp
+     ;;   :ensure t
+     ;;   :config
+     ;;   (push 'company-lsp company-backends))
    #+end_src
 * YAsnippet
   #+begin_src emacs-lisp
@@ -1666,5 +1683,9 @@
     ;; (which-key-setup-side-window-right)
     ;; Allow C-h to trigger which-key before it is done automatically
     ;; (setq which-key-show-early-on-C-h t)
+    ;; this doen't work and I don't yet know how to fix
+    ;; on mac keyboard F1 sucks, but use this for now
     (define-key which-key-mode-map (kbd "C-x /") 'which-key-C-h-dispatch)
   #+end_src
+
+
