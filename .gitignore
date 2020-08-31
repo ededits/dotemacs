@@ -24,3 +24,4 @@ elpy
 .cache
 .#*
 .dap-*
+/image-dired/

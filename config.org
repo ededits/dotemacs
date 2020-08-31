@@ -1687,5 +1687,10 @@
     ;; on mac keyboard F1 sucks, but use this for now
     (define-key which-key-mode-map (kbd "C-x /") 'which-key-C-h-dispatch)
   #+end_src
-
-
+* Magit
+  #+begin_src emacs-lisp
+    (use-package magit 
+      :ensure t
+      :config
+      )
+  #+end_src

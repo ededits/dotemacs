@@ -35,7 +35,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("f2927d7d87e8207fa9a0a003c0f222d45c948845de162c885bf6ad2a255babfd" default)))
+   '("f2927d7d87e8207fa9a0a003c0f222d45c948845de162c885bf6ad2a255babfd" default))
+ '(package-selected-packages
+   '(magit yasnippet-snippets which-key use-package undo-tree try telephone-line smooth-scrolling smex smartparens org-bullets lsp-ui lsp-treemacs iedit flycheck expand-region eglot doom-themes doom-modeline counsel-projectile company ccls)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
