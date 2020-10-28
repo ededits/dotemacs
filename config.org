@@ -62,7 +62,6 @@
     (setq visible-bell nil)
     (setq ring-bell-function 'ignore)
   #+end_src
-
 * General configs
   #+begin_src emacs-lisp
     ;; Set up load path
@@ -220,9 +219,7 @@
     ;; ibuffer is a nicer way to deal with list of buffers
     (global-set-key "\C-x\C-b" 'ibuffer)
   #+end_src
-
-* Look and appearance
-** general appearance settings
+* Look and appearance** general appearance settings
    #+begin_src emacs-lisp
      ;;------------COLOR THEME--------------------------------------
      ;; commented out -- I am using doom-modeline instead
@@ -1356,6 +1353,22 @@
      'org-babel-load-languages
      '((python . t)))
   #+end_src
+** org-roam
+   #+begin_src emacs-lisp
+     (use-package org-roam
+       :ensure t
+       :hook
+       (after-init . org-roam-mode)
+       :custom
+       (org-roam-directory "/Users/eugene/Work/org-roam")
+       :bind (:map org-roam-mode-map
+                   (("C-c n l" . org-roam)
+                    ("C-c n f" . org-roam-find-file)
+                    ("C-c n g" . org-roam-graph))
+                   :map org-mode-map
+                   (("C-c n i" . org-roam-insert))
+                   (("C-c n I" . org-roam-insert-immediate))))
+   #+end_src
 * Misc
   #+begin_src emacs-lisp
     (require 'expand-region)  ;;C-. to expand, C-, to contract
@@ -1427,6 +1440,7 @@
 * LSP
   #+begin_src emacs-lisp
     (use-package lsp-mode
+      :ensure t
       :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
              (python-mode . lsp)
              (c-mode . lsp)
@@ -1477,8 +1491,10 @@
     ;; often lsp-mode will refresh the highlights, lenses, links, etc
     ;; while you type.
     ;; (setq lsp-idle-delay 0.500)
-  #+end_src
 
+    ;; some LSP configs for specific languages
+    (setq lsp-pyls-server-command "/opt/anaconda3/bin/pyls")
+  #+end_src
 * Dired
 * Matlab and Octave
   #+begin_src $emacs-lisp
