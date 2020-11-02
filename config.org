@@ -219,7 +219,8 @@
     ;; ibuffer is a nicer way to deal with list of buffers
     (global-set-key "\C-x\C-b" 'ibuffer)
   #+end_src
-* Look and appearance** general appearance settings
+* Look and appearance
+** general appearance settings
    #+begin_src emacs-lisp
      ;;------------COLOR THEME--------------------------------------
      ;; commented out -- I am using doom-modeline instead
@@ -429,29 +430,31 @@
      (set-dark-scheme)
      ;;(set-light-scheme)
    #+end_src
+** set general font
+   I wm only setting a font if this is not running in terminal
+   #+begin_src emacs-lisp
+     (when (not (display-graphic-p) )
+       ;; Set default font
+       (set-face-attribute 'default nil
+                           :family "Pragmata Pro"
+                           :height 140
+                           :weight 'normal
+                           :width 'normal))
+   #+end_src
 * Mac settings
   #+begin_src emacs-lisp
     ;; Are we on a mac?
     (setq is-mac (equal system-type 'darwin))
-
     (when is-mac
       ;; change command to meta, and ignore option to use weird Norwegian keyboard
       ;; (setq mac-option-modifier 'none)
       (setq mac-command-modifier 'meta)
       (setq ns-function-modifier 'hyper)
-
-      ;; Set default font
-      (set-face-attribute 'default nil
-                          :family "Pragmata Pro"
-                          :height 140
-                          :weight 'normal
-                          :width 'normal)
-
-
       ;; make sure path is correct when launched as application
       (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
       (push "/usr/local/bin" exec-path)
-
+      (setenv "PATH" (concat "/opt/local/bin:" (getenv "PATH")))
+      (push "/opt/local/bin" exec-path)
       ;; keybinding to toggle full screen mode
       (defun toggle-fullscreen ()
         "Toggle full screen"
@@ -461,20 +464,16 @@
          (when (not (frame-parameter nil 'fullscreen)) 'fullboth))
         )
       (global-set-key (quote [M-f10]) (quote toggle-frame-fullscreen))
-
       ;; Move to trash when deleting stuff
       (setq delete-by-moving-to-trash t
             trash-directory "~/.Trash/emacs")
-
       ;; Ignore .DS_Store files with ido mode
       ;;(add-to-list 'ido-ignore-files "\\.DS_Store")
-
       ;; Don't open files from the workspace in a new frame
       (setq ns-pop-up-frames nil)
-
       ;; Use aspell for spell checking: brew install aspell --lang=en
       (setq ispell-program-name "/opt/local/bin/aspell")
-      )
+    )
   #+end_src
 * Custom defuns
 ** buffer defuns
