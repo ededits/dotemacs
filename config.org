@@ -1777,5 +1777,15 @@
   #+begin_src emacs-lisp
     (setq tramp-default-method "ssh") ;; Faster than the default scp
   #+end_src
-
+* Yafolding
+  Let's fold some code
+  #+begin_src emacs-lisp
+    (use-package yafolding
+      :bind ("M-]" . yafolding-toggle-element)
+      :init
+      (dolist (hook '(prog-mode-hook
+                      conf-mode-hook
+                      python-mode-hook))
+        (add-hook hook 'yafolding-mode)))
+  #+end_src
 
