@@ -1790,5 +1790,3 @@
         (add-hook hook 'yafolding-mode)))
   #+end_src
 
-
-some text
