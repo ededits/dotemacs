@@ -35,7 +35,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(lsp-python-ms pyvenv company-lsp company-box yasnippet-snippets which-key use-package undo-tree try telephone-line smooth-scrolling smex smartparens python-mode org-bullets magit lsp-ui lsp-treemacs lsp-jedi iedit ido-vertical-mode flycheck expand-region exec-path-from-shell eglot doom-themes doom-modeline diredful counsel-projectile company)))
+   '(yafolding lsp-python-ms pyvenv company-lsp company-box yasnippet-snippets which-key use-package undo-tree try telephone-line smooth-scrolling smex smartparens python-mode org-bullets magit lsp-ui lsp-treemacs lsp-jedi iedit ido-vertical-mode flycheck expand-region exec-path-from-shell eglot doom-themes doom-modeline diredful counsel-projectile company)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

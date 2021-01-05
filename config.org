@@ -1781,6 +1781,7 @@
   Let's fold some code
   #+begin_src emacs-lisp
     (use-package yafolding
+      :ensure t
       :bind ("M-]" . yafolding-toggle-element)
       :init
       (dolist (hook '(prog-mode-hook
