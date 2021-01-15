@@ -1685,7 +1685,7 @@
 ** C/C++
 *** LSP, with clangd
     #+begin_src emacs-lisp
-      (setq lsp-clients-clangd-executable "/opt/local/bin/clangd-mp-9.0")
+      (setq lsp-clients-clangd-executable "/usr/local/opt/llvm/bin/clangd")
       (add-hook 'c-mode--hook #'lsp-clangd-c-enable)
       (add-hook 'c++-mode-hook #'lsp-clangd-c++-enable)
       (add-hook 'objc-mode-hook #'lsp-clangd-objc-enable)
