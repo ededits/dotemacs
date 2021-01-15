@@ -467,7 +467,7 @@
       ;; Don't open files from the workspace in a new frame
       (setq ns-pop-up-frames nil)
       ;; Use aspell for spell checking: brew install aspell --lang=en
-      (setq ispell-program-name "/opt/local/bin/aspell")
+      (setq ispell-program-name "/usr/local/bin/aspell")
       ;; on macOS, ls doesn't support the --dired option while on Linux it is supported.
       (setq dired-use-ls-dired nil)
       ;; set normal exec path
