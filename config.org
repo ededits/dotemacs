@@ -995,8 +995,8 @@
 
 
     ;; increase and decrease font
-    (global-set-key (kbd "C-=") 'text-scale-increase)
-    (global-set-key (kbd "C--") 'text-scale-decrease)
+    ;; (global-set-key (kbd "C-=") 'text-scale-increase)
+    ;; (global-set-key (kbd "C--") 'text-scale-decrease)
 
 
     ;; Add color to a shell running in emacs M-x shell
