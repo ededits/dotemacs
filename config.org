@@ -1111,193 +1111,195 @@
 
 * LaTeX
   #+begin_src emacs-lisp
-    ;; (use-package auctex
-    ;;   :ensure t
-    ;;   :defer t
-    ;;   :hook
-    ;;   (TeX-mode . TeX-PDF-mode)
-    ;;   (TeX-mode . company-mode)
-    ;;   :init
-    ;;   (setq reftex-plug-into-AUCTeX t)
-    ;;   (setq TeX-parse-self t)
-    ;;   (setq-default TeX-master nil)
+        (use-package auctex
+          :ensure t
+          :defer t
+          :hook
+          (TeX-mode . TeX-PDF-mode)
+          (TeX-mode . company-mode)
+          :init
+          (setq reftex-plug-into-AUCTeX t)
+          (setq TeX-parse-self t)
+          (setq-default TeX-master nil)
 
-    ;;   (setq TeX-open-quote  "<<")
-    ;;   (setq TeX-close-quote ">>")
-    ;;   (setq TeX-electric-sub-and-superscript t)
-    ;;   (setq font-latex-fontify-script nil)
-    ;;   (setq TeX-show-compilation nil)
+          (setq TeX-open-quote  "<<")
+          (setq TeX-close-quote ">>")
+          (setq TeX-electric-sub-and-superscript t)
+          (setq font-latex-fontify-script nil)
+          (setq TeX-show-compilation nil)
 
-    ;;   (setq preview-scale-function 1.5)
-    ;;   (setq preview-gs-options
-    ;;         '("-q" "-dNOSAFER" "-dNOPAUSE" "-DNOPLATFONTS"
-    ;;           "-dPrinted" "-dTextAlphaBits=4" "-dGraphicsAlphaBits=4"))
+          (setq preview-scale-function 1.5)
+          (setq preview-gs-options
+                '("-q" "-dNOSAFER" "-dNOPAUSE" "-DNOPLATFONTS"
+                  "-dPrinted" "-dTextAlphaBits=4" "-dGraphicsAlphaBits=4"))
 
-    ;;   (setq reftex-label-alist '(AMSTeX)))
+          (setq reftex-label-alist '(AMSTeX))
+          (setenv "PATH" "/Library/TeX/texbin:$PATH" t)
+          )
 
-    ;; (use-package company-auctex
-    ;;   :ensure t
-    ;;   :init
-    ;;   (company-auctex-init))
+    ;;    (use-package company-auctex
+        ;;   :ensure t
+        ;;   :init
+        ;;   (company-auctex-init))
 
-    ;; (use-package company-math
-    ;;   :ensure t
-    ;;   :init
-    ;;   (add-to-list 'company-backends 'company-math))
+        ;; (use-package company-math
+        ;;   :ensure t
+        ;;   :init
+        ;;   (add-to-list 'company-backends 'company-math))
 
-    ;; (use-package company-reftex
-    ;;   :ensure t
-    ;;   :init
-    ;;   (add-to-list 'company-backends 'company-reftex-citations)
-    ;;   (add-to-list 'company-backends 'company-reftex-labels))
-
-
-
-    ;; ;;------------------------------------------------------------
-    ;; ;; LaTeX
-    ;; ;;------------------------------------------------------------
-    ;; ;; SHIFT+CMD+click -- opens Skim and positions cursor at the same place
-    ;; ;;(setq exec-path (append exec-path '("/usr/texbin/")))
-    ;; ;--------------------------------------------------
-    ;; ;; (setq exec-path (append exec-path '("/opt/local/bin")))
-    ;; (setenv "PATH" (concat "/Library/TeX/texbin:" (getenv "PATH")))
-    ;; ;; (setenv "PATH" (concat "/opt/local/bin:" (getenv "PATH")))
-    ;; (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
-    ;; ;; set PATH to see pygmentize
-    ;; (setenv "PATH" (concat "/opt/anaconda3/bin:" (getenv "PATH")))
-
-    ;; ;;(load "auctex.el" nil t t)
-    ;; ;;(load "preview-latex.el" nil t t)
-
-    ;; ;---------------------------------------------------
-    ;; (custom-set-variables
-    ;;  '(LaTeX-command "latex  -synctex=1 --shell-escape")
-    ;;  '(TeX-PDF-mode t)
-    ;;  '(TeX-source-correlate-mode t)
-    ;;  '(TeX-source-correlate-start-server t)
-    ;;  '(preview-gs-command "/usr/local/bin/gs")
-    ;;  '(preview-gs-options (quote
-    ;;                        ("-q"
-    ;;                         "-dNOPAUSE"
-    ;;                         "-DNOPLATFONTS"
-    ;;                         "-dPrinted"
-    ;;                         "-dTextAlphaBits=4"
-    ;;                         "-dGraphicsAlphaBits=4"))
-    ;;                       )
-    ;;  ;;'(LaTeX-command "latex -synctex=1")
-    ;;  '(TeX-view-program-list
-    ;;    (quote (("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline %n %o %b"))))
-    ;;  '(TeX-view-program-selection
-    ;;    (quote (
-    ;;            ((output-dvi style-pstricks) "dvips and gv")
-    ;;            (output-dvi "xdvi")
-    ;;            (output-pdf "Skim")
-    ;;            (output-html "xdg-open")
-    ;;            ))
-    ;;    )
-    ;;  )
-    ;; ;;  integrate auctex with reftex
-    ;; (setq reftex-plug-into-AUCTeX t)
-    ;; (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-    ;; ;; prompt me for all labels
-    ;; (setq reftex-insert-label-flags (quote ("s" "slreft")))
+        ;; (use-package company-reftex
+        ;;   :ensure t
+        ;;   :init
+        ;;   (add-to-list 'company-backends 'company-reftex-citations)
+        ;;   (add-to-list 'company-backends 'company-reftex-labels))
 
 
 
-    ;; ;; (custom-set-variables
-    ;; ;;  ;; custom-set-variables was added by Custom.
-    ;; ;;  ;; If you edit it by hand, you could mess it up, so be careful.
-    ;; ;;  ;; Your init file should contain only one such instance.
-    ;; ;;  ;; If there is more than one, they won't work right.
-    ;; ;;  '(LaTeX-command "latex -synctex=1 -shell-escape")
-    ;; ;;  '(TeX-PDF-mode t)
-    ;; ;;  '(TeX-command-list
-    ;; ;;    (quote
-    ;; ;;     (("TeX" "%(PDF)%(tex) %(file-line-error) %(extraopts) %`%S%(PDFout)%(mode)%' %t" TeX-run-TeX nil
-    ;; ;;       (plain-tex-mode texinfo-mode ams-tex-mode)
-    ;; ;;       :help "Run plain TeX")
-    ;; ;;      ("LaTeX" "%`%l%(mode)%' %t" TeX-run-TeX nil
-    ;; ;;       (latex-mode doctex-mode)
-    ;; ;;       :help "Run LaTeX")
-    ;; ;;       ("Makeinfo" "makeinfo %(extraopts) %t" TeX-run-compile nil
-    ;; ;;       (texinfo-mode)
-    ;; ;;       :help "Run Makeinfo with Info output")
-    ;; ;;      ("Makeinfo HTML" "makeinfo %(extraopts) --html %t" TeX-run-compile nil
-    ;; ;;       (texinfo-mode)
-    ;; ;;       :help "Run Makeinfo with HTML output")
-    ;; ;;      ("AmSTeX" "amstex %(PDFout) %(extraopts) %`%S%(mode)%' %t" TeX-run-TeX nil
-    ;; ;;       (ams-tex-mode)
-    ;; ;;       :help "Run AMSTeX")
-    ;; ;;      ("ConTeXt" "%(cntxcom) --once --texutil %(extraopts) %(execopts)%t" TeX-run-TeX nil
-    ;; ;;       (context-mode)
-    ;; ;;       :help "Run ConTeXt once")
-    ;; ;;      ("ConTeXt Full" "%(cntxcom) %(extraopts) %(execopts)%t" TeX-run-TeX nil
-    ;; ;;       (context-mode)
-    ;; ;;       :help "Run ConTeXt until completion")
-    ;; ;;      ("BibTeX" "bibtex %s" TeX-run-BibTeX nil t :help "Run BibTeX")
-    ;; ;;      ("Biber" "biber %s" TeX-run-Biber nil t :help "Run Biber")
-    ;; ;;      ("View" "%V" TeX-run-discard-or-function t t :help "Run Viewer")
-    ;; ;;      ("Print" "%p" TeX-run-command t t :help "Print the file")
-    ;; ;;      ("Queue" "%q" TeX-run-background nil t :help "View the printer queue" :visible TeX-queue-command)
-    ;; ;;      ("File" "%(o?)dvips %d -o %f " TeX-run-dvips t t :help "Generate PostScript file")
-    ;; ;;      ("Dvips" "%(o?)dvips %d -o %f " TeX-run-dvips nil t :help "Convert DVI file to PostScript")
-    ;; ;;      ("Dvipdfmx" "dvipdfmx %d" TeX-run-dvipdfmx nil t :help "Convert DVI file to PDF with dvipdfmx")
-    ;; ;;      ("Ps2pdf" "ps2pdf %f" TeX-run-ps2pdf nil t :help "Convert PostScript file to PDF")
-    ;; ;;      ("Index" "makeindex %s" TeX-run-index nil t :help "Run makeindex to create index file")
-    ;; ;;      ("Xindy" "texindy %s" TeX-run-command nil t :help "Run xindy to create index file")
-    ;; ;;      ("Check" "lacheck %s" TeX-run-compile nil
-    ;; ;;       (latex-mode)
-    ;; ;;       :help "Check LaTeX file for correctness")
-    ;; ;;      ("ChkTeX" "chktex -v6 %s" TeX-run-compile nil
-    ;; ;;       (latex-mode)
-    ;; ;;       :help "Check LaTeX file for common mistakes")
-    ;; ;;      ("Spell" "(TeX-ispell-document \"\")" TeX-run-function nil t :help "Spell-check the document")
-    ;; ;;      ("Clean" "TeX-clean" TeX-run-function nil t :help "Delete generated intermediate files")
-    ;; ;;      ("Clean All" "(TeX-clean t)" TeX-run-function nil t :help "Delete generated intermediate and output files")
-    ;; ;;      ("Other" "" TeX-run-command t t :help "Run an arbitrary command"))))
-    ;; ;;  '(TeX-kpathsea-path-delimiter ":")
-    ;; ;;  '(TeX-source-correlate-mode t)
-    ;; ;;  '(TeX-source-correlate-start-server t)
-    ;; ;;  '(TeX-view-program-list
-    ;; ;;    (quote
-    ;; ;;     (("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline %n %o %b"))))
-    ;; ;;  '(TeX-view-program-selection
-    ;; ;;    (quote
-    ;; ;;     (((output-dvi style-pstricks)
-    ;; ;;       "dvips and gv")
-    ;; ;;      (output-dvi "xdvi")
-    ;; ;;      (output-pdf "Skim")
-    ;; ;;      (output-html "xdg-open"))))
-    ;; ;;  '(font-latex-fontify-script nil)
-    ;; ;;  '(preview-gs-command "/usr/local/bin/gs")
-    ;; ;;  '(preview-gs-options
-    ;; ;;    (quote
-    ;; ;;     ("-q" "-dNOPAUSE" "-DNOPLATFONTS" "-dPrinted" "-dTextAlphaBits=4" "-dGraphicsAlphaBits=4"))))
+        ;; ;;------------------------------------------------------------
+        ;; ;; LaTeX
+        ;; ;;------------------------------------------------------------
+        ;; ;; SHIFT+CMD+click -- opens Skim and positions cursor at the same place
+        ;; ;;(setq exec-path (append exec-path '("/usr/texbin/")))
+        ;; ;--------------------------------------------------
+        ;; ;; (setq exec-path (append exec-path '("/opt/local/bin")))
+        ;; (setenv "PATH" (concat "/Library/TeX/texbin:" (getenv "PATH")))
+        ;; ;; (setenv "PATH" (concat "/opt/local/bin:" (getenv "PATH")))
+        ;; (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
+        ;; ;; set PATH to see pygmentize
+        ;; (setenv "PATH" (concat "/opt/anaconda3/bin:" (getenv "PATH")))
+
+        ;; ;;(load "auctex.el" nil t t)
+        ;; ;;(load "preview-latex.el" nil t t)
+
+        ;; ;---------------------------------------------------
+        ;; (custom-set-variables
+        ;;  '(LaTeX-command "latex  -synctex=1 --shell-escape")
+        ;;  '(TeX-PDF-mode t)
+        ;;  '(TeX-source-correlate-mode t)
+        ;;  '(TeX-source-correlate-start-server t)
+        ;;  '(preview-gs-command "/usr/local/bin/gs")
+        ;;  '(preview-gs-options (quote
+        ;;                        ("-q"
+        ;;                         "-dNOPAUSE"
+        ;;                         "-DNOPLATFONTS"
+        ;;                         "-dPrinted"
+        ;;                         "-dTextAlphaBits=4"
+        ;;                         "-dGraphicsAlphaBits=4"))
+        ;;                       )
+        ;;  ;;'(LaTeX-command "latex -synctex=1")
+        ;;  '(TeX-view-program-list
+        ;;    (quote (("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline %n %o %b"))))
+        ;;  '(TeX-view-program-selection
+        ;;    (quote (
+        ;;            ((output-dvi style-pstricks) "dvips and gv")
+        ;;            (output-dvi "xdvi")
+        ;;            (output-pdf "Skim")
+        ;;            (output-html "xdg-open")
+        ;;            ))
+        ;;    )
+        ;;  )
+        ;; ;;  integrate auctex with reftex
+        ;; (setq reftex-plug-into-AUCTeX t)
+        ;; (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+        ;; ;; prompt me for all labels
+        ;; (setq reftex-insert-label-flags (quote ("s" "slreft")))
 
 
-    ;; ;; ;; Don't enlarge and fontify latex sections please
-    ;; ;; (custom-set-faces
-    ;; ;;  '(font-latex-sectioning-2-face ((t (:inherit font-latex-sectioning-1-face :height 1.0))))
-    ;; ;;  '(font-latex-sectioning-3-face ((t (:inherit font-latex-sectioning-4-face :height 1.0))))
-    ;; ;;  '(font-latex-sectioning-4-face ((t (:inherit font-latex-sectioning-5-face :height 1.0))))
-    ;; ;;  '(font-latex-sectioning-5-face ((t (:inherit default :foreground "yellow"))))
-    ;; ;;  '(font-latex-subscript-face ((t nil)))
-    ;; ;;  '(font-latex-superscript-face ((t nil)))
-    ;; ;;  )
+
+        ;; ;; (custom-set-variables
+        ;; ;;  ;; custom-set-variables was added by Custom.
+        ;; ;;  ;; If you edit it by hand, you could mess it up, so be careful.
+        ;; ;;  ;; Your init file should contain only one such instance.
+        ;; ;;  ;; If there is more than one, they won't work right.
+        ;; ;;  '(LaTeX-command "latex -synctex=1 -shell-escape")
+        ;; ;;  '(TeX-PDF-mode t)
+        ;; ;;  '(TeX-command-list
+        ;; ;;    (quote
+        ;; ;;     (("TeX" "%(PDF)%(tex) %(file-line-error) %(extraopts) %`%S%(PDFout)%(mode)%' %t" TeX-run-TeX nil
+        ;; ;;       (plain-tex-mode texinfo-mode ams-tex-mode)
+        ;; ;;       :help "Run plain TeX")
+        ;; ;;      ("LaTeX" "%`%l%(mode)%' %t" TeX-run-TeX nil
+        ;; ;;       (latex-mode doctex-mode)
+        ;; ;;       :help "Run LaTeX")
+        ;; ;;       ("Makeinfo" "makeinfo %(extraopts) %t" TeX-run-compile nil
+        ;; ;;       (texinfo-mode)
+        ;; ;;       :help "Run Makeinfo with Info output")
+        ;; ;;      ("Makeinfo HTML" "makeinfo %(extraopts) --html %t" TeX-run-compile nil
+        ;; ;;       (texinfo-mode)
+        ;; ;;       :help "Run Makeinfo with HTML output")
+        ;; ;;      ("AmSTeX" "amstex %(PDFout) %(extraopts) %`%S%(mode)%' %t" TeX-run-TeX nil
+        ;; ;;       (ams-tex-mode)
+        ;; ;;       :help "Run AMSTeX")
+        ;; ;;      ("ConTeXt" "%(cntxcom) --once --texutil %(extraopts) %(execopts)%t" TeX-run-TeX nil
+        ;; ;;       (context-mode)
+        ;; ;;       :help "Run ConTeXt once")
+        ;; ;;      ("ConTeXt Full" "%(cntxcom) %(extraopts) %(execopts)%t" TeX-run-TeX nil
+        ;; ;;       (context-mode)
+        ;; ;;       :help "Run ConTeXt until completion")
+        ;; ;;      ("BibTeX" "bibtex %s" TeX-run-BibTeX nil t :help "Run BibTeX")
+        ;; ;;      ("Biber" "biber %s" TeX-run-Biber nil t :help "Run Biber")
+        ;; ;;      ("View" "%V" TeX-run-discard-or-function t t :help "Run Viewer")
+        ;; ;;      ("Print" "%p" TeX-run-command t t :help "Print the file")
+        ;; ;;      ("Queue" "%q" TeX-run-background nil t :help "View the printer queue" :visible TeX-queue-command)
+        ;; ;;      ("File" "%(o?)dvips %d -o %f " TeX-run-dvips t t :help "Generate PostScript file")
+        ;; ;;      ("Dvips" "%(o?)dvips %d -o %f " TeX-run-dvips nil t :help "Convert DVI file to PostScript")
+        ;; ;;      ("Dvipdfmx" "dvipdfmx %d" TeX-run-dvipdfmx nil t :help "Convert DVI file to PDF with dvipdfmx")
+        ;; ;;      ("Ps2pdf" "ps2pdf %f" TeX-run-ps2pdf nil t :help "Convert PostScript file to PDF")
+        ;; ;;      ("Index" "makeindex %s" TeX-run-index nil t :help "Run makeindex to create index file")
+        ;; ;;      ("Xindy" "texindy %s" TeX-run-command nil t :help "Run xindy to create index file")
+        ;; ;;      ("Check" "lacheck %s" TeX-run-compile nil
+        ;; ;;       (latex-mode)
+        ;; ;;       :help "Check LaTeX file for correctness")
+        ;; ;;      ("ChkTeX" "chktex -v6 %s" TeX-run-compile nil
+        ;; ;;       (latex-mode)
+        ;; ;;       :help "Check LaTeX file for common mistakes")
+        ;; ;;      ("Spell" "(TeX-ispell-document \"\")" TeX-run-function nil t :help "Spell-check the document")
+        ;; ;;      ("Clean" "TeX-clean" TeX-run-function nil t :help "Delete generated intermediate files")
+        ;; ;;      ("Clean All" "(TeX-clean t)" TeX-run-function nil t :help "Delete generated intermediate and output files")
+        ;; ;;      ("Other" "" TeX-run-command t t :help "Run an arbitrary command"))))
+        ;; ;;  '(TeX-kpathsea-path-delimiter ":")
+        ;; ;;  '(TeX-source-correlate-mode t)
+        ;; ;;  '(TeX-source-correlate-start-server t)
+        ;; ;;  '(TeX-view-program-list
+        ;; ;;    (quote
+        ;; ;;     (("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline %n %o %b"))))
+        ;; ;;  '(TeX-view-program-selection
+        ;; ;;    (quote
+        ;; ;;     (((output-dvi style-pstricks)
+        ;; ;;       "dvips and gv")
+        ;; ;;      (output-dvi "xdvi")
+        ;; ;;      (output-pdf "Skim")
+        ;; ;;      (output-html "xdg-open"))))
+        ;; ;;  '(font-latex-fontify-script nil)
+        ;; ;;  '(preview-gs-command "/usr/local/bin/gs")
+        ;; ;;  '(preview-gs-options
+        ;; ;;    (quote
+        ;; ;;     ("-q" "-dNOPAUSE" "-DNOPLATFONTS" "-dPrinted" "-dTextAlphaBits=4" "-dGraphicsAlphaBits=4"))))
 
 
-    ;; ;; ;; a note about building autex. I do it by using
-    ;; ;; ;; ./configure --prefix=/Users/eugene/.emacs.d/site-lisp/auctex/ \
-    ;; ;; ;; --with-emacs=/Applications/Emacs.app/Contents/MacOS/Emacs \
-    ;; ;; ;; --with-lispdir=/Users/eugene/.emacs.d/site-lisp/auctex \
-    ;; ;; ;; --with-texmf-dir=/usr/local/texlive/texmf-local
-    ;; ;; ;;
-    ;; ;; ;; and then make & make install
-    ;; ;; ;;
-    ;; ;; ;; finally autoload latex-math-mode
-    ;; ;; (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+        ;; ;; ;; Don't enlarge and fontify latex sections please
+        ;; ;; (custom-set-faces
+        ;; ;;  '(font-latex-sectioning-2-face ((t (:inherit font-latex-sectioning-1-face :height 1.0))))
+        ;; ;;  '(font-latex-sectioning-3-face ((t (:inherit font-latex-sectioning-4-face :height 1.0))))
+        ;; ;;  '(font-latex-sectioning-4-face ((t (:inherit font-latex-sectioning-5-face :height 1.0))))
+        ;; ;;  '(font-latex-sectioning-5-face ((t (:inherit default :foreground "yellow"))))
+        ;; ;;  '(font-latex-subscript-face ((t nil)))
+        ;; ;;  '(font-latex-superscript-face ((t nil)))
+        ;; ;;  )
 
-    ;; ;; (provide 'setup-latex)
+
+        ;; ;; ;; a note about building autex. I do it by using
+        ;; ;; ;; ./configure --prefix=/Users/eugene/.emacs.d/site-lisp/auctex/ \
+        ;; ;; ;; --with-emacs=/Applications/Emacs.app/Contents/MacOS/Emacs \
+        ;; ;; ;; --with-lispdir=/Users/eugene/.emacs.d/site-lisp/auctex \
+        ;; ;; ;; --with-texmf-dir=/usr/local/texlive/texmf-local
+        ;; ;; ;;
+        ;; ;; ;; and then make & make install
+        ;; ;; ;;
+        ;; ;; ;; finally autoload latex-math-mode
+        ;; ;; (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+
+        ;; ;; (provide 'setup-latex)
 
   #+end_src
 * Org mode
@@ -1574,6 +1576,29 @@
     ;; ;; some LSP configs for specific languages
     ;; (setq lsp-pyls-server-command "/opt/anaconda3/bin/pyls")
   #+end_src
+** debugging with DAP
+   Debugging the code. Based on this document:
+   https://emacs-lsp.github.io/dap-mode/page/configuration/
+   #+begin_src emacs-lisp
+     (require 'dap-mode)
+     (use-package dap-mode)
+     ;; dap mode itself
+     (dap-mode 1)
+
+     ;; The modes below are optional
+     (dap-ui-mode 1)
+     ;; enables mouse hover support
+     (dap-tooltip-mode 1)
+     ;; use tooltips for mouse hover
+     ;; if it is not enabled `dap-mode' will use the minibuffer.
+     (tooltip-mode 1)
+     ;; displays floating panel with debug buttons
+     ;; requies emacs 26+
+     (dap-ui-controls-mode 1)
+
+
+ 
+   #+end_src
 * Dired
   #+begin_src emacs-lisp
     (use-package diredful
@@ -1620,7 +1645,7 @@
        :ensure t
        :init
        (global-flycheck-mode t))
-     (setq flycheck-python-flake8-executable "flake8")
+     (setq flycheck-python-flake8-executable "/opt/anaconda3/bin/flake8")
      ;; let's disable python-pylint checker, it is reported to be slow.
      ;; also I want to only use flake8, so I will disable lsp checker as well
      (setq-default flycheck-disabled-checkers '(python-pylint python-pycompile lsp))
@@ -1706,10 +1731,6 @@
     #+begin_src emacs-lisp
       (use-package python-mode
         :ensure t)
-        ;;:hook (python-mode . lsp)
-        ;;:hook (python-mode . (lambda ()
-        ;;                       (require 'lsp-python-ms)
-        ;;                       (lsp))))  ; or lsp-deferred
 
       (add-hook 'python-mode-hook
                 (lambda ()
@@ -1718,7 +1739,8 @@
                   (setq py-shell-name (concat my-python-root "/bin/python"))
                   (setq py-pythonpath (concat my-python-root "lib/python3.8/site-packages"))
                   (setq python-shell-interpreter (concat my-python-root "bin/python"))
-                  (setq python-shell-interpreter-args "-i --nosep")))
+                  ;;(setq python-shell-interpreter-args "-i --nosep")
+                  ))
 
       (use-package pyvenv
         :ensure t
