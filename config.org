@@ -176,6 +176,7 @@
   (put 'autopair-newline 'disabled nil)
 #+end_src
 
+
 * Windows and buffer management
 #+begin_src emacs-lisp
   (use-package ace-window
@@ -192,7 +193,6 @@
   (global-set-key "\C-x\C-n" 'other-window)
   ;; move to previous window
   (global-set-key "\C-x\C-p" 'other-window-backward)
-
 
   ;; "Ctrl+c <-" will restore the previous window configuration and 
   ;; "Ctrl+c ->" will redo the configuration you just destroyed.
@@ -213,9 +213,7 @@
 #+end_src
 
 ** color scheme
-
 #+begin_src emacs-lisp
-
   (defun set-dark-scheme ()
     (interactive)
     (load-theme 'deeper-blue t)
@@ -235,7 +233,6 @@
     (setq-default cursor-type '(bar . 3))
     (set-cursor-color "red")
     (set-face-background 'region "steel blue"))
-
 
   ;; set the theme
   (set-dark-scheme)
@@ -1203,12 +1200,11 @@ Not using for now
   (use-package org-bullets
     :ensure t
     :config
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1) (org-indent-mode 1))))
   ;; set how org-agenda works
   (setq org-log-done t)
   (global-set-key (kbd "C-c a") 'org-agenda)
-  (setq org-agenda-files '("~/Desktop/Notes.org"
-                           "~/Work/NYU/notes/NYU_main.org"))
+  (setq org-agenda-files '("~/Desktop/Notes.org"))
   ;; make <s <e and other expansions work again
   (use-package org-tempo)
   ;; org-mode: Don't ruin S-arrow to switch windows please (use M-+ and M-- instead to toggle)
