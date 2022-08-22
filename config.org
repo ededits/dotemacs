@@ -302,7 +302,8 @@
     ;; Don't open files from the workspace in a new frame
     (setq ns-pop-up-frames nil)
     ;; Use aspell for spell checking: brew install aspell --lang=en
-    (setq ispell-program-name "/usr/local/bin/aspell")
+    (setq ispell-program-name "/opt/homebrew/bin/aspell")
+  
     ;; on macOS, ls doesn't support the --dired option while on Linux it is supported.
     (setq dired-use-ls-dired nil)
     ;; set normal exec path
@@ -888,7 +889,7 @@ Not using for now
 #+end_src
 
 * LaTeX
-#+begin_src 1emacs-lisp
+#+begin_src emacs-lisp
   (use-package auctex
     :ensure t
     :defer t
@@ -914,6 +915,16 @@ Not using for now
     (setq reftex-label-alist '(AMSTeX))
     (setenv "PATH" "/Library/TeX/texbin:$PATH" t)
     )
+
+  (setq TeX-source-correlate-mode 1)
+  (setq TeX-source-correlate-method 'synctex
+        TeX-view-program-list   ;; Use Skim, it's awesome
+        '(("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline -g -b %n %o %b"))
+        TeX-view-program-selection '((output-pdf "Skim"))
+        TeX-auto-save t
+        TeX-parse-self t
+        TeX-save-query nil
+        TeX-master 'dwim)
 #+end_src
 
 * Dired
