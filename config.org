@@ -37,10 +37,6 @@
   ;;   :ensure t)
   (use-package iedit 
     :ensure t)
-  (use-package which-key
-    :ensure t
-    :config
-    (which-key-mode))
 #+end_src
   
 * General UI tweaks
@@ -66,7 +62,6 @@
   (show-paren-mode 1)
 #+end_src
 
-  
 * General configs
 #+begin_src emacs-lisp
   ;; let's unset the deafault exit keybind
@@ -176,7 +171,6 @@
   (put 'autopair-newline 'disabled nil)
 #+end_src
 
-
 * Windows and buffer management
 #+begin_src emacs-lisp
   (use-package ace-window
@@ -201,7 +195,6 @@
   ;; ibuffer is a nicer way to deal with list of buffers
   (global-set-key "\C-x\C-b" 'ibuffer)
 #+end_src  
-
 
 * Look and appearance
 ** general appearance settings
@@ -278,7 +271,6 @@
 
 
 
-
 * Mac settings
 #+begin_src emacs-lisp
   ;; Are we on a mac?
@@ -317,7 +309,6 @@
     ;; (exec-path-from-shell-initialize)
     )
 #+end_src
-
 
 * Custom defuns
 ** buffer defuns
@@ -685,7 +676,6 @@
 
 
 
-
 * Keybindings
 #+begin_src emacs-lisp
   ;; I don't need to kill emacs that easily
@@ -841,7 +831,6 @@
 #+end_src
 
    
-
 * projectile
 Not using for now
 #+begin_src 1emacs-lisp
@@ -1305,9 +1294,15 @@ Auto-completion engine
   (use-package yasnippet-snippets
     :ensure t)
 #+end_src
+
 * Which-key
 This little utility shows you a map of all the available keys
 #+begin_src emacs-lisp
+  (use-package which-key
+    :ensure t
+    :config
+    (which-key-mode))
+
   (which-key-setup-side-window-bottom)
   ;; (which-key-setup-side-window-right)
   ;; Allow C-h to trigger which-key before it is done automatically
