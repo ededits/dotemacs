@@ -1,5 +1,5 @@
 * Startup time
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (defun display-startup-time ()
     (message "Emacs loaded in %s with %d garbage collections."
              (format "%.2f seconds"
@@ -7,7 +7,7 @@
                       (time-subtract after-init-time before-init-time)))
              gcs-done))
   (add-hook 'emacs-startup-hook #'display-startup-time)
-#+END_SRC
+#+end_src
   
 * install packages
 #+begin_src emacs-lisp
@@ -18,8 +18,6 @@
   (use-package undo-tree
     :ensure t)
   (use-package expand-region
-    :ensure t)
-  (use-package telephone-line
     :ensure t)
   (use-package smartparens
     :ensure t)
@@ -43,14 +41,6 @@
     :ensure t
     :config
     (which-key-mode))
-  ;; nice modeline 
-  (use-package doom-modeline
-    :ensure t
-    :init (doom-modeline-mode 1))
-  ;; doom modeline (and doom-theme, see in the theme section) require
-  ;; this package
-  (use-package all-the-icons
-    :ensure t)
 #+end_src
   
 * General UI tweaks
@@ -155,6 +145,7 @@
   ;; see ./site-lisp/undo-tree.el
   (setq undo-tree-mode-lighter "")
   (require 'undo-tree)
+  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/backup")))
   (global-undo-tree-mode)
   ;; Sentences do not need double spaces to end
   (set-default 'sentence-end-double-space nil)
@@ -222,51 +213,46 @@
 #+end_src
 
 ** color scheme
-#+begin_src emacs-lisp
-  ;; doom themes are quite nice, let's try using them
-  ;; (use-package doom-themes
-  ;;   :ensure t
-  ;;   :config
-  ;;   ;; Global settings (defaults)
-  ;;   (setq dom-themes-enable-bold nil    ; if nil, bold is universally disabled
-  ;;         doom-themes-enable-italic nil) ; if nil, italics is universally disabled
-  ;;   (load-theme 'doom-one t)
-  ;;   ;; Enable flashing mode-line on errors
-  ;;   ;; (doom-themes-visual-bell-config)
-  ;;   ;; Enable custom neotree theme (all-the-icons must be installed!)
-  ;;   ;; (doom-themes-neotree-config)
-  ;;   ;; or for treemacs users
-  ;;   (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
-  ;;   (doom-themes-treemacs-config)
-  ;;   ;; Corrects (and improves) org-mode's native fontification.
-  ;;   (doom-themes-org-config))
 
+#+begin_src emacs-lisp
 
   (defun set-dark-scheme ()
     (interactive)
     (load-theme 'deeper-blue t)
     (global-hl-line-mode 1)
     (set-face-background 'hl-line "#242433") ;; goes well with deeper-blue
-    (setq-default cursor-type '(box . 5))
+    (setq-default cursor-type '(bar . 3))
     (set-cursor-color "red")
     (set-face-background 'region "steel blue"))
+
+
+  (defun set-dark-scheme ()
+    (interactive)
+    (load-theme 'atom-dark t)
+    ;;(load-theme 'dracula t)
+    (global-hl-line-mode 1)
+    (set-face-background 'hl-line "gray14") ;; goes well with atom-dark
+    (setq-default cursor-type '(bar . 3))
+    (set-cursor-color "red")
+    (set-face-background 'region "steel blue"))
+
+
   ;; set the theme
   (set-dark-scheme)
   ;;(set-light-scheme)
 #+end_src
-
-#+RESULTS:
-
-** set general font
-I am only setting a font if this is not running in terminal
+** font
 #+begin_src emacs-lisp
-  ;; (if (window-system)
-  ;;   (set-face-attribute 'default nil
-  ;;                      :family "Pragmata Pro"
-  ;;                       ;;:family "Iosevka"
-  ;;                       :height 120
-  ;;                       :weight 'normal
-  ;;                       :width 'normal))
+  (if (window-system)
+      (set-face-attribute 'default nil
+                          ;;:family "Pragmata Pro"
+                          ;;:family "Iosevka"
+                          :family "Menlo"
+                          :height 120)
+    ;;(dolist (face '(default fixed-pitch variable-pitch))
+    ;;(set-face-attribute `,face nil :font "Pragmata Pro"))
+    )
+
 
 
   ;; text-scale increase breaks how popus from company mode work. so
@@ -282,6 +268,17 @@ I am only setting a font if this is not running in terminal
   ;; (global-set-key (kbd "C-=") 'font-large)
   ;; (global-set-key (kbd "C--") 'font-normal)
 #+end_src
+** modeline
+#+begin_src emacs-lisp
+  (use-package doom-modeline
+    :ensure t
+    :init (doom-modeline-mode 1))
+  ;; doom modeline (and doom-theme, see in the theme section) require
+  ;; this package
+  (use-package all-the-icons
+    :ensure t)
+#+end_src
+
 
 
 
@@ -836,6 +833,10 @@ I am only setting a font if this is not running in terminal
   ;; increase and decrease font
   ;; (global-set-key (kbd "C-=") 'text-scale-increase)
   ;; (global-set-key (kbd "C--") 'text-scale-decrease)
+  ;; increase and decrease font
+  (setq text-scale-mode-step 1.05)
+  (global-set-key (kbd "C-=") 'text-scale-increase)
+  (global-set-key (kbd "C--") 'text-scale-decrease)  
 
 
   ;; Add color to a shell running in emacs M-x shell
