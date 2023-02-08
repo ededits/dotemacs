@@ -1,3 +1,4 @@
+#+STARTUP: overview
 * Startup time
 #+begin_src emacs-lisp
   (defun display-startup-time ()
@@ -8,7 +9,7 @@
              gcs-done))
   (add-hook 'emacs-startup-hook #'display-startup-time)
 #+end_src
-  
+
 * install packages
 #+begin_src emacs-lisp
   (use-package try
@@ -27,14 +28,6 @@
     :ensure t)
   (use-package spinner
     :ensure t)
-  ;; (use-package lsp-mode
-  ;;   :ensure t)
-  ;; (use-package lsp-ui
-  ;;   :ensure t)
-  ;; ;; (use-package company-lsp
-  ;; ;;   :ensure t)
-  ;; (use-package lsp-treemacs
-  ;;   :ensure t)
   (use-package iedit 
     :ensure t)
 #+end_src
@@ -64,10 +57,10 @@
 
 * General configs
 #+begin_src emacs-lisp
-  ;; let's unset the deafault exit keybind
+  ;;let's unset the deafault exit keybind
   (global-unset-key (kbd "C-x C-c"))
-  ;; Set up load path
-  ;; restore the same buffers that were opened last time
+  ;;Set up load path
+  ;;restore the same buffers that were opened last time
   (setq desktop-restore-eager 20)
   (desktop-save-mode 1)
   (savehist-mode 1)
@@ -159,11 +152,11 @@
   (defadvice pop-to-mark-command (around ensure-new-position activate)
     (let ((p (point)))
       (when (eq last-command 'save-region-or-current-line)
-        ad-do-it
-        ad-do-it
-        ad-do-it)
+	ad-do-it
+	ad-do-it
+	ad-do-it)
       (dotimes (i 10)
-        (when (= p (point)) ad-do-it))))
+	(when (= p (point)) ad-do-it))))
   ;;;; Run at full power please, and don't ask for confirmation for these commands
   (put 'downcase-region 'disabled nil)
   (put 'narrow-to-region 'disabled nil)
@@ -194,6 +187,10 @@
 
   ;; ibuffer is a nicer way to deal with list of buffers
   (global-set-key "\C-x\C-b" 'ibuffer)
+
+  ;; easier window resize -- M-x windresize -> then use arrows to resize
+  (use-package windresize
+    :ensure t)
 #+end_src  
 
 * Look and appearance
@@ -207,30 +204,42 @@
 
 ** color scheme
 #+begin_src emacs-lisp
+  ;; first install doome-theme
+  (use-package doom-themes
+    :ensure t
+    :config
+    ;; Global settings (defaults)
+    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+          doom-themes-enable-italic t)) ; if nil, italics is universally disabled
+  
   (defun set-dark-scheme ()
     (interactive)
-    (load-theme 'deeper-blue t)
+    (load-theme 'doom-Iosvkem t)
     (global-hl-line-mode 1)
-    (set-face-background 'hl-line "#242433") ;; goes well with deeper-blue
+    (set-face-background 'hl-line "#2f3742") ;; goes well with deeper-blue
     (setq-default cursor-type '(bar . 3))
     (set-cursor-color "red")
-    (set-face-background 'region "steel blue"))
+    ;; (set-face-background 'region "steel blue")
+    (doom-themes-visual-bell-config)
+    ;; Corrects (and improves) org-mode's native fontification.
+    (doom-themes-org-config))
 
 
-  (defun set-dark-scheme ()
-    (interactive)
-    (load-theme 'atom-dark t)
-    ;;(load-theme 'dracula t)
-    (global-hl-line-mode 1)
-    (set-face-background 'hl-line "gray14") ;; goes well with atom-dark
-    (setq-default cursor-type '(bar . 3))
-    (set-cursor-color "red")
-    (set-face-background 'region "steel blue"))
+  ;; (defun set-light-scheme ()
+  ;;   (interactive)
+  ;;   (load-theme 'leuven' t)
+  ;;   (global-hl-line-mode 1)
+  ;;   (set-face-background 'hl-line "#cae1ff") ;; goes well with deeper-blue
+  ;;   (setq-default cursor-type '(bar . 3))
+  ;;   (set-cursor-color "red"))
 
-  ;; set the theme
+
+
+  ;; ;; set the theme
   (set-dark-scheme)
-  ;;(set-light-scheme)
+  ;; ;;(set-light-scheme)
 #+end_src
+
 ** font
 #+begin_src emacs-lisp
   (if (window-system)
@@ -238,12 +247,10 @@
                           ;;:family "Pragmata Pro"
                           ;;:family "Iosevka"
                           :family "Menlo"
-                          :height 120)
+                          :height 140)
     ;;(dolist (face '(default fixed-pitch variable-pitch))
     ;;(set-face-attribute `,face nil :font "Pragmata Pro"))
     )
-
-
 
   ;; text-scale increase breaks how popus from company mode work. so
   ;; instead I define two fonts, norma and large. This should be
@@ -258,18 +265,19 @@
   ;; (global-set-key (kbd "C-=") 'font-large)
   ;; (global-set-key (kbd "C--") 'font-normal)
 #+end_src
+
+
 ** modeline
 #+begin_src emacs-lisp
-  (use-package doom-modeline
-    :ensure t
-    :init (doom-modeline-mode 1))
-  ;; doom modeline (and doom-theme, see in the theme section) require
-  ;; this package
-  (use-package all-the-icons
-    :ensure t)
+    (use-package doom-modeline
+       :ensure t
+       :init (doom-modeline-mode 1))
+    ;; doom modeline (and doom-theme, see in the theme section) require
+    ;; this package
+    (use-package all-the-icons
+      :ensure t)
+    (setq doom-modeline-major-mode-color-icon t)
 #+end_src
-
-
 
 * Mac settings
 #+begin_src emacs-lisp
@@ -303,7 +311,7 @@
     (setq ns-pop-up-frames nil)
     ;; Use aspell for spell checking: brew install aspell --lang=en
     (setq ispell-program-name "/opt/homebrew/bin/aspell")
-  
+
     ;; on macOS, ls doesn't support the --dired option while on Linux it is supported.
     (setq dired-use-ls-dired nil)
     ;; set normal exec path
@@ -335,7 +343,7 @@
                (setq n (1+ n))
                (get-buffer bufname)))
       (switch-to-buffer (get-buffer-create bufname))
-      (emacs-lisp-mode)
+      (111emacs-lisp-mode)
       ))
 
   ;; move to previous window 
@@ -419,6 +427,8 @@
   ;;          (file (completing-read "Choose recent file: " files)))
   ;;     (find-file (cdr (assoc file recent-files)))))
 #+end_src
+
+
 ** editing defuns
 #+begin_src emacs-lisp
   ;; Basic text editing defuns
@@ -543,6 +553,8 @@
     (re-search-forward "[0-9]+" nil)
     (replace-match (incs (match-string 0) arg) nil nil))
 #+end_src
+
+
 ** file defuns
 #+begin_src emacs-lisp
   ;; Defuns for working with files
@@ -586,6 +598,8 @@
   (provide 'file-defuns)
 
 #+end_src
+
+
 ** misc defuns
 #+begin_src emacs-lisp
   ;; Misc defuns go here
@@ -674,9 +688,6 @@
     (edit-kbd-macro 'view-lossage))
 #+end_src
 
-
-
-
 * Keybindings
 #+begin_src emacs-lisp
   ;; I don't need to kill emacs that easily
@@ -721,7 +732,7 @@
 
   ;; Use M-w for copy-line if no active region
   (global-set-key (kbd "M-w") 'save-region-or-current-line)
-  (global-set-key (kbd "M-W") '(lambda () (interactive) (save-region-or-current-line 1)))
+  (global-set-key (kbd "M-W") #'(lambda () (interactive) (save-region-or-current-line 1)))
 
   ;; ;; File finding
   ;; (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
@@ -831,10 +842,9 @@
   (global-set-key (kbd "C-c s") 'eshell)
 #+end_src
 
-   
 * projectile
 Not using for now
-#+begin_src 1emacs-lisp
+#+begin_src 111emacs-lisp
     (use-package projectile
       :ensure t
       :config
@@ -927,6 +937,9 @@ Not using for now
         TeX-master 'dwim)
 #+end_src
 
+#+RESULTS:
+: dwim
+
 * Dired
 #+begin_src emacs-lisp
   (use-package diredful
@@ -999,63 +1012,8 @@ Not using for now
       (delete-region (point-min) (point-max)))
     (eshell-send-input) )
   (add-hook 'eshell-mode-hook
-            '(lambda () (define-key eshell-mode-map "\C-l" 'eshell-clear)))
+            #'(lambda () (define-key eshell-mode-map "\C-l" 'eshell-clear)))
 #+end_src  
-
-* LSP
-** New setup 
-   #+begin_src emacs-lisp
-     (use-package lsp-mode
-       :ensure t
-       :defer t
-       :hook (lsp-mode . (lambda ()
-                           (let ((lsp-keymap-prefix "C-c l"))
-                             (lsp-enable-which-key-integration))))
-       :init
-       :config
-       (setq lsp-keep-workspace-alive nil
-             lsp-signature-doc-lines 5
-             lsp-idle-delay 0.5
-             lsp-prefer-capf t
-             lsp-client-packages nil
-             lsp-print-io t
-             lsp-enable-snippet t
-             lsp-enable-semantic-highlighting t
-             lsp-prefer-flymake nil)
-       (define-key lsp-mode-map (kbd "C-c l") lsp-command-map))
-
-     (use-package lsp-ui
-       :ensure t
-       :hook (lsp-mode . lsp-ui-mode)
-       :custom
-       (lsp-ui-doc-position 'bottom))
-
-
-     (use-package lsp-mode
-       :ensure t
-       :commands (lsp lsp-deferred)
-       :init
-       (setq lsp-keymap-prefix "C-c C-l")
-       :config
-       (lsp-enable-which-key-integration t)
-       (setq lsp-prefer-flymake nil))
-
-     (use-package lsp-ui
-       :ensure t
-       :hook (lsp-mode . lsp-ui-mode)
-       :custom
-       (lsp-ui-doc-position 'bottom))
-
-     (use-package lsp-python-ms
-       :ensure t
-       :init (setq lsp-python-ms-auto-install-server t)
-       :hook (python-mode . (lambda ()
-                            (require 'lsp-python-ms)
-                            (lsp))))  ; or lsp-deferred
-   #+end_src
-
-
-
 * Programming (C, Python, Matlab, etc..)
 ** Flycheck
 #+begin_src emacs-lisp
@@ -1063,12 +1021,6 @@ Not using for now
     :ensure t
     :init
     (global-flycheck-mode t))
-  (setq flycheck-python-flake8-executable "/opt/anaconda3/bin/flake8")
-  ;; let's disable python-pylint checker, it is reported to be slow.
-  ;; also I want to only use flake8, so I will disable lsp checker as well
-  ;; (setq-default flycheck-disabled-checkers '(python-pylint python-pycompile lsp))
-  ;;(setq-default flycheck-disabled-checkers '(python-pylint python-pycompile lsp))
-  ;;(setq-default flycheck-checker '(python-flake8))
 
   ;; let's use a nice round ball for errors/warnings indication
   (define-fringe-bitmap 'flycheck-fringe-bitmap-ball
@@ -1109,81 +1061,64 @@ Not using for now
     :fringe-face 'flycheck-fringe-info)
 #+end_src
 ** Python
-*** old
+:PROPERTIES:
+:VISIBILITY: all
+:END:
 #+begin_src emacs-lisp
+  (use-package python
+    :ensure nil
+    :init
+    (setq my-python-root "/Users/eugene/py39/")
+    :custom
+    (python-shell-interpreter (concat my-python-root "bin/ipython"))
+    (python-shell-interpreter-args "-i --nosep")
+    (python-indent-offset 4)
 
-  ;; ;; (use-package python-mode
-  ;; ;;   :ensure nil
-  ;; ;;   :custom
-  ;; ;;   (python-shell-intepreter "/opt/anaconda3/bin/python"))
-  ;; ;; ;; please use my custom python here
-  ;; ;; (setenv "IPY_TEST_SIMPLE_PROMPT" "1")
-  ;; ;; (setq python-shell-interpreter "ipython"
-  ;; ;;       python-shell-interpreter-args "-i")
-
-  ;; (setq exec-path (append exec-path '("/opt/anaconda3/bin")))
-  ;; ;;(setq exec-path (append exec-path '("/Users/eugene/.local/bin")))
-  ;; (setq python-shell-interpreter "/opt/anaconda3/bin/python")
-  ;; (setq python-shell-interpreter-args "-i --nosep")
-  ;; (setq python-indent-offset 4)
-
-
-  ;; ;; ;;--------------------------------------------------------
-  ;; ;; ;; programming: make
-  ;; ;; (global-set-key "\C-c\C-]" (quote compile))
-  ;; ;; ;; compilation window size
-  ;; ;; (setq compilation-window-height 8)
-  ;; ;; ;; to make compilation window go away
-  ;; ;; ;; if there are no compilation errors
-  ;; ;; (setq compilation-finish-function
-  ;; ;;       (lambda (buf str)
-  ;; ;;         (if (string-match "exited abnormally" str)
-  ;; ;;             ;;there were errors
-  ;; ;;             (message "compilation errors, press C-x ` to visit")
-  ;; ;;           ;;no errors, make the compilation window go away in 0.5 seconds
-  ;; ;;           (run-at-time 0.5 nil 'delete-windows-on buf)
-  ;; ;;           (message "NO COMPILATION ERRORS!"))))
-  ;; ;; ;;--------------------------------------------------------
-#+end_src
-*** New
-#+begin_src emacs-lisp
-  (use-package python-mode
-    :ensure t)
-
-  (add-hook 'python-mode-hook
-            (lambda ()
-              (setq my-python-root "/opt/anaconda/anaconda3/")
-              (setq py-python-command (concat my-python-root "bin/python"))
-              (setq py-shell-name (concat my-python-root "/bin/python"))
-              (setq py-pythonpath (concat my-python-root "lib/python3.9/site-packages"))
-              (setq python-shell-interpreter (concat my-python-root "bin/python"))
-              (setq python-shell-interpreter-args "-i --nosep")
-              (setq python-indent-offset 4)
-              ))
-
-  (use-package pyvenv
-    :ensure t
     :config
-    (pyvenv-mode 1))
-#+end_src
+    (add-to-list 'python-shell-completion-native-disabled-interpreters
+                 "ipython")
+    (push (concat my-python-root "bin") exec-path)
+    (setq lsp-diagnostics-provider :none)
+    (setq lsp-diagnostics-package :none)
+    (setq flycheck-python-flake8-executable (concat my-python-root "bin/flake8")))
 
+
+  ;; (use-package pyvenv
+  ;;   :ensure t
+  ;;   :config
+  ;;   (pyvenv-mode 1)
+  ;;   :init
+  ;;   (setenv "WORKON_HOME" "~/py39"))
+
+
+  (use-package lsp-ui)
+
+  (use-package lsp-pyright
+    :ensure t
+    :hook (python-mode . (lambda ()
+                           (require 'lsp-pyright)
+                           (lsp-deferred)))
+    ;:config
+    )
+#+end_src
 
 ** C/C++
 *** LSP, with clangd
 #+begin_src emacs-lisp
-  (setq lsp-clients-clangd-executable "/usr/local/opt/llvm/bin/clangd")
+  ;;(setq lsp-clients-clangd-executable "/usr/local/opt/llvm/bin/clangd")
   (add-hook 'c-mode--hook #'lsp-clangd-c-enable)
   (add-hook 'c++-mode-hook #'lsp-clangd-c++-enable)
   (add-hook 'objc-mode-hook #'lsp-clangd-objc-enable)
+  (setq lsp-clients-clangd-library-directories "/usr:/Users/eugene/Work/Code/Lorenz_buttefly")
 #+end_src
 *** eglot 
-#+begin_src emacs-lisp
+#+begin_src1 111emacs-lisp
   ;; (add-to-list 'eglot-server-programs '((c++-mode c-mode) "/opt/local/bin/clangd-mp-9.0"))
   ;; (add-hook 'c-mode-hook 'eglot-ensure)
   ;; (add-hook 'c++-mode-hook 'eglot-ensure)
 #+end_src
 *** lsp with ccls 
-#+begin_src emacs-lisp
+#+begin_src1 111emacs-lisp
   ;; (use-package ccls
   ;;   :ensure t
   ;;   :config
@@ -1213,7 +1148,7 @@ Not using for now
   (setq org-src-fontify-natively t)
   ;; set tasks states
   (setq org-todo-keywords '((sequence "TODO" "BLOCKED" "INPROGRESS" "|" "DONE" "ARCHIVED")))
-
+  ;; set states colors
   ;; Setting colors (faces) for todo states to give clearer view of work 
   ;; (setq org-todo-keyword-faces
   ;;       '(("TODO" . org-warning)
@@ -1248,47 +1183,50 @@ Not using for now
   (global-set-key (kbd "C-x M-s") 'wrap-src)
 
   ;; Don't enlarge and fontify headers
-  (custom-set-faces
-   '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
-   '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
-   '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
-   '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
-   '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
-   )
+  ;; (custom-set-faces
+  ;;  '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
+  ;;  '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
+  ;;  '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
+  ;;  '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
+  ;;  '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
+  ;;  )
 
   ;; please, don't hl-background for org-blocks
-  (custom-set-faces
-   '(org-block ((t (:extend nil))))
-   '(org-block-begin-line ((t (:extend nil))))
-   )
+  (set-face-attribute 'org-block nil :background)
 
-
+  ;; 
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((python . t)))
 #+end_src  
 
-
-
-
-
-
 * Company mode
 Auto-completion engine
 #+begin_src emacs-lisp
-  (use-package company
-    :ensure t
-    :bind (:map company-active-map
-                ("<tab>" . company-complete-selection))
-    :config
-    (setq company-idle-delay 0.1)
-    (setq company-minimum-prefix-length 2)
-    (global-company-mode t))
+  ;; (use-package company
+  ;;   :ensure t
+
+  ;;   :config
+  ;;   (setq company-idle-delay 0.1)
+  ;;   (setq company-minimum-prefix-length 2)
+  ;;   (global-company-mode t))
 
   ;;company-box provides a nicer interface than default company
   ;; (use-package company-box
   ;;   :ensure t
   ;;   :hook (company-mode . company-box-mode))
+
+
+  (use-package company
+    :ensure t
+    :config
+    ;;:bind (:map company-active-map
+    ;;            ("<tab>" . company-complete-selection))
+    (setq company-idle-delay 0.1)
+    (setq company-tooltip-limit 10) ; show 5 candidates at one time  
+    (setq company-minimum-prefix-length 2)
+    :init
+    (add-hook 'after-init-hook 'global-company-mode t))
 #+end_src
 * YAsnippet
 #+begin_src emacs-lisp
@@ -1331,12 +1269,12 @@ This little utility shows you a map of all the available keys
     )
 #+end_src
 * Tramp
-#+begin_src emacs-lisp
+#+begin_src 111emacs-lisp
   (setq tramp-default-method "ssh") ;; Faster than the default scp
 #+end_src
 * Yafolding
 Let's fold some code
-#+begin_src emacs-lisp
+#+begin_src 111emacs-lisp
   (use-package yafolding
     :ensure t
     :bind ("M-]" . yafolding-toggle-element)
@@ -1347,3 +1285,36 @@ Let's fold some code
       (add-hook hook 'yafolding-mode)))
 #+end_src
   
+* LSP
+#+begin_src emacs-lisp
+  (use-package lsp-mode
+    :ensure t
+    :defer t
+    :hook (lsp-mode . (lambda ()
+                        (let ((lsp-keymap-prefix "C-c l"))
+                          (lsp-enable-which-key-integration))))
+    :init
+    :config
+    (setq lsp-keep-workspace-alive nil
+          lsp-signature-doc-lines 5
+          lsp-idle-delay 0.5
+          lsp-prefer-capf t
+          lsp-client-packages nil
+          lsp-print-io t
+          lsp-enable-snippet t
+          lsp-enable-semantic-highlighting t
+          lsp-prefer-flymake nil)
+    (define-key lsp-mode-map (kbd "C-c l") lsp-command-map))
+
+  (use-package lsp-ui
+    :ensure t
+    :hook (lsp-mode . lsp-ui-mode)
+    :custom
+    (lsp-ui-doc-position 'bottom))
+
+#+end_src
+
+
+
+
+
